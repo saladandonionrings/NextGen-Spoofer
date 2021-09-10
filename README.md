@@ -1,7 +1,9 @@
 # NEXTGEN SPOOFER
 ![logo](https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png)
 
-python tkinter arp / dns spoof and cli
+python arp and dns spoof CLI and INTERFACE
+###### CLI -> advanced pentesters
+###### INTERFACE -> beginners
 
 # SetUp
 ##### Make sure you installed Python/Python3
