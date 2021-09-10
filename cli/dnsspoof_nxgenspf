@@ -71,4 +71,4 @@ if __name__ == "__main__":
         queue.run()
     except KeyboardInterrupt:
         # fin du programme on fait iptables flush
-        os.system("iptables --flush"
+        os.system("iptables --flush")
