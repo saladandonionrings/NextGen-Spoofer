@@ -9,7 +9,7 @@
 ##### Make sure you installed Python/Python3
 ##### Please, install netfilterqueue and scapy as prerequisites
 
-# ARP Spoof
+# ARP Spoof 💈
 ## CLI
 		python arp_spoof_nxgenspf.py [-s] [-a]
     
@@ -27,7 +27,7 @@
 		@IP TARGET = 192.168.10.9
 		
 		
-# DNS SPOOF
+# DNS SPOOF 🍔
 #### PLS, USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
 ## CLI
 	"www." are not ALWAYS useful for the domain name.
