@@ -37,12 +37,5 @@ Python ARP and DNS Spoofer CLI and INTERFACE
 #### Example
 	DNS NAME = google.com
 	DNS @IP = <your malicious web server> 
-
-
-	
-
-
-
-
-
-
+## Contributers
+![GitHub contributors](https://img.shields.io/github/contributors/saladandonionrings/nextgen_spoofer)
