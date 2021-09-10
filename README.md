@@ -1,7 +1,10 @@
 # NEXTGEN SPOOFER
 ![logo](https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png)
 
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/3?style=flat-square)
+
 🥑 A Python ARP and DNS Spoofer CLI and INTERFACE 🥓
+
 #### CLI -> advanced pentesters
 #### INTERFACE -> beginners
 
@@ -38,4 +41,4 @@
 	DNS @IP = <your malicious web server> 
 ## Contributors 🛹
 ![GitHub contributors](https://img.shields.io/github/contributors/saladandonionrings/nextgen_spoofer?style=flat-square)
-![Python version](https://img.shields.io/pypi/pyversions/virtualenv?style=flat-square)
+
