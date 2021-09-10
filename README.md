@@ -18,8 +18,7 @@
 
 [-a] : all network is targeted
 
-
-#### Pls, know the IP ADDRESSES of the network/victim you want to attack.
+#### Please, know the IP ADDRESSE(S) of the network/victim you want to attack.
 
 
 ## INTERFACE
