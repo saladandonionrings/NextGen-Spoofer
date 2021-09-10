@@ -1,7 +1,7 @@
 # NEXTGEN SPOOFER
 ![logo](https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png)
 
-Python ARP and DNS Spoofer CLI and INTERFACE
+🥑 A Python ARP and DNS Spoofer CLI and INTERFACE 🥓
 #### CLI -> advanced pentesters
 #### INTERFACE -> beginners
 
@@ -37,5 +37,5 @@ Python ARP and DNS Spoofer CLI and INTERFACE
 #### Example
 	DNS NAME = google.com
 	DNS @IP = <your malicious web server> 
-## Contributers
+## Contributors 🛹
 ![GitHub contributors](https://img.shields.io/github/contributors/saladandonionrings/nextgen_spoofer)
