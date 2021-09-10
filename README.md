@@ -37,4 +37,5 @@
 	DNS NAME = google.com
 	DNS @IP = <your malicious web server> 
 ## Contributors 🛹
-![GitHub contributors](https://img.shields.io/github/contributors/saladandonionrings/nextgen_spoofer)
+![GitHub contributors](https://img.shields.io/github/contributors/saladandonionrings/nextgen_spoofer?style=flat-square)
+![Python version](https://img.shields.io/pypi/pyversions/virtualenv?style=flat-square)
