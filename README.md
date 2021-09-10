@@ -9,7 +9,7 @@ python tkinter arp / dns spoof and cli
 
 # ARP Spoof
 ## CLI
-		python arp_spoof_V1.py [-s] [-a]
+		python arp_spoof_nxgenspf.py [-s] [-a]
     
 ### WARNING : You cannot use both !
 [-s] : single target
