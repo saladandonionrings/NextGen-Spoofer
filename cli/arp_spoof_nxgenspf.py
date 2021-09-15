@@ -96,10 +96,10 @@ print('[*] Starting... [*]')
 
 #---------------------------------- ARGUMENTS -------------------------------------
 parser = argparse.ArgumentParser()
-#a for all
+# -a for all
 parser.add_argument('-a', dest='a', action='store_true', help="shows a")
 
-#s for single
+# -s for single
 parser.add_argument('-s', dest='s', action='store_true', help="shows s")
 
 args = parser.parse_args()
@@ -114,7 +114,7 @@ me_ip = get_if_addr(iface)
 me_mac = get_if_hwaddr(iface)
 
 # Print our infos (hacker)
-print('\n[i] Mon adresse IP : ( {0} ) et ma mac : ( {1} )'.format(me_ip, me_mac))
+print('\n[i] My IP address : ( {0} ) and my MAC address : ( {1} )'.format(me_ip, me_mac))
 
 # Router global definition 
 routeur_ip=conf.route.route("0.0.0.0")[2]
