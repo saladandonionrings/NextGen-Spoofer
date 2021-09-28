@@ -37,9 +37,12 @@
 		@IP TARGET = 192.168.10.9
 		
 		
-# DNS SPOOF 🍔
+# 🍔 DNS SPOOF 
 #### 📢 PLS, USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
 ## #️⃣ CLI
+	python dns_spoof_nxgenspf.py
+	
+#### 📝 Note 
 	"www." are not ALWAYS useful for the domain name.
 	You can edit the file to spoof any domain you want.
 	
