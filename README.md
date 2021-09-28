@@ -28,6 +28,8 @@
 
 
 ## INTERFACE
+![image](https://user-images.githubusercontent.com/61053314/135092217-d70b029e-c62c-4fdf-8bc5-95cc09f1c019.png)
+
 #### Example:
 		interface = eno1
 		@IP TARGET = 192.168.10.9
