@@ -6,7 +6,7 @@
 ## 🥑 A Python ARP and DNS Spoofer CLI and INTERFACE 🐍
 
 #### CLI 👉 advanced pentesters
-#### INTERFACE 👉 beginners
+#### INTERACTIVE INTERFACE 👉 beginners
 
 
 # ⚙️ SetUp 
