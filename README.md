@@ -8,9 +8,10 @@
 #### CLI -> advanced pentesters
 #### INTERFACE -> beginners
 
-### Recommanded to run it on Debian 10
+
 
 # SetUp
+#### Recommanded to run it on Debian 10
 ##### Make sure you installed Python/Python3
 ##### Please, install netfilterqueue and scapy as prerequisites
 
