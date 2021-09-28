@@ -27,8 +27,11 @@
 #### Please, know the IP ADDRESSE(S) of the network/victim you want to attack.
 
 ## INTERFACE
-One target : ![image](https://user-images.githubusercontent.com/61053314/135092929-215ff14a-efde-4b3d-ba2d-626e6969eaa5.png)
-All network is targeted : ![image](https://user-images.githubusercontent.com/61053314/135093020-8ef53716-0be0-4390-bcf1-d27013cf9c47.png)
+#### One target : 
+![image](https://user-images.githubusercontent.com/61053314/135092929-215ff14a-efde-4b3d-ba2d-626e6969eaa5.png)
+
+#### All network is targeted : 
+![image](https://user-images.githubusercontent.com/61053314/135093020-8ef53716-0be0-4390-bcf1-d27013cf9c47.png)
 
 #### Example:
 		interface = eno1
