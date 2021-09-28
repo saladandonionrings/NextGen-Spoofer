@@ -4,7 +4,7 @@ import os
 
 # DNS host records, for instance here, we want to spoof google.com
 dns_hosts = {
-    b"google.com.": "192.168.40.113", # change this
+    b"google.com.": "192.168.40.113", # change this + add your malicious web server ip
     b"www.google.com.": "192.168.40.113", # this too
 }
 
