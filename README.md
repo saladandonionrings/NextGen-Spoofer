@@ -47,9 +47,8 @@
 	You can edit the file to spoof any domain you want.
 	
 ## 👨🏽‍💻 INTERFACE
-#### Example
 ![image](https://user-images.githubusercontent.com/61053314/135093120-b8b36176-fc22-496e-8b93-061b2518dc4f.png)
-
+#### Example
 	DNS NAME = google.com
 	DNS @IP = <your malicious web server> 
 	
