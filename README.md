@@ -23,7 +23,7 @@
 
 [-a] : all network is targeted
 
-#### 📢 PLS, know the IP ADDRESS(ES) of the network/victim you want to attack.
+#### 📢 PLS, know the IP ADDRESS of the network/victim you want to attack.
 
 ## 👨🏽‍💻 INTERFACE
 #### 1️⃣🎯 One target : 
