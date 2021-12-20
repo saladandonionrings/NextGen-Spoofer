@@ -12,7 +12,22 @@
 # ⚙️ SetUp 
 #### 🍀 Recommanded to run it on Debian 10
 ##### 📢 Make sure you installed Python/Python3
-##### 📢 Please, install netfilterqueue and scapy as prerequisites
+##### 📢 Please, install netfilterqueue and scapy as prerequisites :
+
+	apt-get update
+
+	# NETFILTERQUEUE INSTALLATION
+	apt-get install build-essential python-dev libnetfilter-queue-dev
+	# OR :
+	pip install NetfilterQueue
+	# OR :
+	git clone git@github.com:kti/python-netfilterqueue.git
+	cd python-netfilterqueue
+	python setup.py install
+
+	# SCAPY INSTALLATION
+	pip install scapy
+
 
 # 💈 ARP Spoof 
 ## #️⃣ CLI
