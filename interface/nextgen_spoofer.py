@@ -49,7 +49,7 @@ class mainwindow(Frame):
         Frame.__init__(self, master)
         self.window = ttk.Notebook()
         
-        #TAB COLOR
+        # TAB COLOR
         
         style = ttk.Style()
         white = "#FFF"
