@@ -15,7 +15,7 @@ def signal_handler(sig, frame):
   global routeur_ip
   global victim_mac
   global routeur_mac    
-  print('\n [!] Restoring the victim's network')
+  print("\n [!] Restoring the victim's network")
   send(ARP(pdst=victim_ip, macdst=victim_mac, psrc=routeur_ip, macsrc=routeur_mac, op=2), count=5, inter=.2)
 
   sys.exit(0)
