@@ -1,6 +1,6 @@
 # coding=utf-8
 #!/usr/bin/python
-#----------------------------IMPORTS ------------------------------------------
+#------------------------------------- IMPORTS ------------------------------------------
 import signal
 import sys
 import socket
@@ -23,7 +23,7 @@ from PIL.ImageTk import PhotoImage
 from PIL import Image, ImageTk
 
 
-# ------------------------------------- MAIN ----------------------------------------
+# ------------------------------------- MAIN ---------------------------------------------
 
 routeur_ip=conf.route.route("0.0.0.0")[2] 
 x = sr1(ARP(pdst=routeur_ip), iface="enp0s3", timeout=2) ## change iface !
@@ -302,7 +302,10 @@ class ARP_one(Frame):
 		self.configure(bg="black")
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-        
+		
+		
+#--------------------------------------------- ARP SPOOF ALL ---------------------------------------------
+
 class ARP_all(Frame):
 	def __init__(self, master):
         
@@ -489,7 +492,8 @@ class ARP_all(Frame):
 		self.label.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-
+		
+#--------------------------------------------- DNS SPOOF ---------------------------------------------
 
 class DNS_attk(Frame):
     def __init__(self, master):
@@ -689,6 +693,8 @@ class DNS_attk(Frame):
         self.gui_pc = gui_pc
         self.hacker_pc = hacker_pc
         self.canvas = canvas
+
+#--------------------------------------------- ABOUT THE PROJECT ---------------------------------------------
 
 class about_nc(Frame):
     def __init__(self, master):
