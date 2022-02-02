@@ -18,8 +18,10 @@
 
 	# NETFILTERQUEUE INSTALLATION
 	apt-get install build-essential python-dev libnetfilter-queue-dev
+	
 	# OR :
 	pip install NetfilterQueue
+	
 	# OR :
 	git clone git@github.com:kti/python-netfilterqueue.git
 	cd python-netfilterqueue
