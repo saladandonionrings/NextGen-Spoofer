@@ -49,13 +49,9 @@
 #### ♾️🎯 All network is targeted : 
 ![image](https://user-images.githubusercontent.com/61053314/135093020-8ef53716-0be0-4390-bcf1-d27013cf9c47.png)
 
-#### Example:
-		interface = eno1
-		@IP TARGET = <target_ip>
-		
 		
 # 🍔 DNS SPOOF 
-#### 📢 PLS, USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
+#### 📢 USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
 ## #️⃣ CLI
 	python dns_spoof_nxgenspf.py
 	
@@ -67,7 +63,7 @@
 ![image](https://user-images.githubusercontent.com/61053314/135093120-b8b36176-fc22-496e-8b93-061b2518dc4f.png)
 #### Example
 	DNS NAME = google.com
-	DNS @IP = <your malicious web server> 
+	DNS @IP = <your malicious web server ip> 
 	
 ## 💭 ABOUT
 ![image](https://user-images.githubusercontent.com/61053314/135092217-d70b029e-c62c-4fdf-8bc5-95cc09f1c019.png)
