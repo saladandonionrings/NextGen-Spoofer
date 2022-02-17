@@ -12,7 +12,7 @@
 # ⚙️ SetUp 
 #### 🍀 Recommanded to run it on Debian 10
 ##### 📢 Make sure you installed Python/Python3
-##### 📢 Please, install netfilterqueue and scapy as prerequisites :
+##### 📢 Please, install *netfilterqueue* and *scapy* as prerequisites :
 
 	apt-get update
 
@@ -51,7 +51,7 @@
 
 #### Example:
 		interface = eno1
-		@IP TARGET = 192.168.10.9
+		@IP TARGET = <target_ip>
 		
 		
 # 🍔 DNS SPOOF 
