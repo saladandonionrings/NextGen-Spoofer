@@ -1,13 +1,12 @@
-![logo](https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png)
-
-
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/3?style=flat-square)
-
-## 🥑 A Python ARP and DNS Spoofer CLI and INTERFACE 🐍
-
-#### CLI 👉 advanced pentesters
-#### INTERACTIVE INTERFACE 👉 beginners
-
+<div align="center">
+  <img alt="logo_nextgen_spoof" src="https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png" width="250" />
+  <h1>👹 Welcome to NextGenSpoofer </h1>
+  <p>
+    <img alt="Python Version" src="https://img.shields.io/pypi/pyversions/3?style=for-the-badge" />
+  </p>
+🐍 Python ARP and DNS Spoofer tool
+<p> 💻 CLI & Interface </p>
+</div>
 
 # ⚙️ SetUp 
 #### 🍀 Recommanded to run it on Debian 10
@@ -26,6 +25,7 @@
 	git clone git@github.com:kti/python-netfilterqueue.git
 	cd python-netfilterqueue
 	python setup.py install
+
 
 	# SCAPY INSTALLATION
 	pip install scapy
