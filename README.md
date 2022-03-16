@@ -22,9 +22,12 @@
 	pip install NetfilterQueue
 	
 	# OR :
-	git clone git@github.com:kti/python-netfilterqueue.git
+	git clone https://github.com/oremanj/python-netfilterqueue.git
 	cd python-netfilterqueue
+	python setup.py build
 	python setup.py install
+	# if bugs :
+	pip install cython
 
 
 	# SCAPY INSTALLATION
