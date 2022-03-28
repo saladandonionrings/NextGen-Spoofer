@@ -34,11 +34,15 @@
 # 💈 ARP Spoof 
 ## #️⃣ CLI
 		python arp_spoof_nxgenspf.py [-s] [-a]
-    
-### ⚠️ WARNING : You cannot use both ! ⚠️
-[-s] : single target
+		### ⚠️ WARNING : You cannot use both ! ⚠️
+		[-s] : single target
+		[-a] : all network is targeted
+		
+### Single target
+https://user-images.githubusercontent.com/61053314/160422041-4de63d8b-7891-41b1-bc8d-aaf7493b0d00.mp4
 
-[-a] : all network is targeted
+### All network is targeted
+https://user-images.githubusercontent.com/61053314/160422196-dcc8f15a-eac6-4c93-a5ae-f93215b7c124.mp4
 
 #### 📢 PLS, know the IP ADDRESS of the network/victim you want to attack.
 
