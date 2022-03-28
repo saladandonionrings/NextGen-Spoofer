@@ -121,7 +121,7 @@ args = parser.parse_args()
 
 
 # Interface input
-result = pyfiglet.figlet_format("Geeks For Geeks", font = "slant"  )
+result = pyfiglet.figlet_format("ARP Spoofer", font = "bloody"  )
 print(result)
 print("\033[3;31m © All credits to NextGenSpoofer  \n")
 print("\033[1;33m Interface :")
