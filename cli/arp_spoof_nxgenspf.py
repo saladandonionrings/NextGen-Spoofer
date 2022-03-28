@@ -80,7 +80,7 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       # For each response, we add ip and mac to the 'victimes' list
       victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
   # Print all network victims
-  print("\033[3;45m \nCONNECTED DEVICES ON THE NETWORK")
+  print("\033[3;35m \nCONNECTED DEVICES ON THE NETWORK")
   print("IP" + " "*18+"MAC")
   for x in victimes:
       print("{:16}    {}".format(x['ip'], x['mac']))
