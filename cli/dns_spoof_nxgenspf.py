@@ -94,4 +94,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         # end of the program, we do iptables flush
         os.system("iptables --flush")
-        print("\033[1;41m[/!\] Closing program...")
+        print("\033[1;31m[/!\] Closing program...")
