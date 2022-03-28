@@ -44,6 +44,7 @@
 
 ## 👨🏽‍💻 INTERFACE
 	# run it as non-root user
+	# !!! Change iface name (line 29 in nextgen_spoofer.py) !!!
 	xhost +
 	
 #### 1️⃣🎯 One target : 
