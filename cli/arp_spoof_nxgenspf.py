@@ -124,7 +124,7 @@ args = parser.parse_args()
 header = pyfiglet.figlet_format("ARP Spoofer", font = "slant")
 print("\033[1;31m"+header)
 print("© All credits to NextGenSpoofer  \n")
-print("\033[1;33m Interface :")
+print("\033[1;33m[?]Interface :")
 iface=input()
 
 # Get our IP and MAC addr
@@ -151,7 +151,7 @@ MAIN MAIN
 try:
   if args.a:
     
-    print("\033[1;34m[i] Network IP(v4) :")
+    print("\033[1;34m \n[?] Network IP(v4) :")
     victim_ip= input()
     
     print("\033[3;31m \n[+] Attacking the network %s on iface %s"%(victim_ip, iface))
@@ -160,7 +160,7 @@ try:
 
   # Single victim attack 
   if args.s:
-    print("\033[1;34m[i] Victim IP(v4) :")
+    print("\033[1;34m \n[?] Victim IP(v4) :")
     victim_ip=input()
     x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) # Since it is a single victim, we need its MAC (for the signal_handler function)
     victim_mac = x.hwsrc
