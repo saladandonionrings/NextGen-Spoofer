@@ -118,7 +118,8 @@ args = parser.parse_args()
 
 
 # Interface input
-print("Interface :")
+print("\033[3;31m All credits to NextGenSpoofer  \n")
+print("\033[1;33m Interface :")
 iface=input()
 
 # Get our IP and MAC addr
@@ -126,7 +127,7 @@ me_ip = get_if_addr(iface)
 me_mac = get_if_hwaddr(iface)
 
 # Print our infos (hacker)
-print('\n[i] Your IP address : ( {0} ) and your MAC address : ( {1} )'.format(me_ip, me_mac))
+print('\033[3;31m \n[i] Your IP address : ( {0} ) and your MAC address : ( {1} )'.format(me_ip, me_mac))
 
 # Router global definition 
 routeur_ip=conf.route.route("0.0.0.0")[2]
@@ -144,11 +145,11 @@ routeur_mac = x.hwsrc
 
 try:
   if args.a:
-    print("\033[1;31m All credits to NextGenSpoofer  \n")
-    print("Network IPv4 :")
+    
+    print("\033[1;34m Network IPv4 :")
     victim_ip= input()
     
-    print("\n[*] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
+    print("\033[3;31m \n[*] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
     print('[i] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     all()
 
