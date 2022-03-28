@@ -1,6 +1,6 @@
 <div align="center">
   <img alt="logo_nextgen_spoof" src="https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png" width="250" />
-  <h1>👹 Welcome to NextGenSpoofer </h1>
+  <h1>🐱‍💻 Welcome to NextGenSpoofer </h1>
   <p>
     <img alt="Python Version" src="https://img.shields.io/pypi/pyversions/3?style=for-the-badge" />
   </p>
