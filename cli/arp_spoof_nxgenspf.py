@@ -121,8 +121,8 @@ args = parser.parse_args()
 
 
 # Interface input
-header=pyfiglet.figlet_format("G e e k", font = "3-d")
-print(header)
+result = pyfiglet.figlet_format("Geeks For Geeks", font = "slant"  )
+print(result)
 print("\033[3;31m © All credits to NextGenSpoofer  \n")
 print("\033[1;33m Interface :")
 iface=input()
