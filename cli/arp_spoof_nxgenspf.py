@@ -144,6 +144,7 @@ routeur_mac = x.hwsrc
 
 try:
   if args.a:
+    print("\033[1;31m All credits to NextGenSpoofer  \n")
     print("Network IPv4 :")
     victim_ip= input()
     
