@@ -26,7 +26,10 @@ from PIL import Image, ImageTk
 # ------------------------------------- MAIN ---------------------------------------------
 
 routeur_ip=conf.route.route("0.0.0.0")[2] 
-x = sr1(ARP(pdst=routeur_ip), iface="enp0s3", timeout=2) ## change iface !
+'''
+CHANGE IFACE !!!! enp0s3 -> your iface
+'''
+x = sr1(ARP(pdst=routeur_ip), iface="enp0s3", timeout=2) 
 routeur_mac=x.hwsrc
 
 class dreamteam(tk.Tk):
@@ -276,8 +279,8 @@ class ARP_one(Frame):
 		self.multiuser.pack()
 
 		# LIGHTS
-		img2 = ImageTk.PhotoImage(Image.open("green.png"))
-		img1 = ImageTk.PhotoImage(Image.open("red.png"))
+		img2 = ImageTk.PhotoImage(Image.open("../images/green.png"))
+		img1 = ImageTk.PhotoImage(Image.open("../images/red.png"))
 
 		# SPACE
 		self.label= Label(self, text="", bg="black")
@@ -288,8 +291,8 @@ class ARP_one(Frame):
 		canvas1.create_image((50, 50), image=img1, tag="smile")
         
 		# GUI VICTIM
-		gui_pc = ImageTk.PhotoImage(Image.open("victim.png"))
-		hacker_pc = ImageTk.PhotoImage(Image.open("hacker.png"))
+		gui_pc = ImageTk.PhotoImage(Image.open("../images/victim.png"))
+		hacker_pc = ImageTk.PhotoImage(Image.open("../images/hacker.png"))
 
 		# SPACES 
 		self.label= Label(self, text="", bg="black")
@@ -464,15 +467,15 @@ class ARP_all(Frame):
 		
 		
 		# LIGHTS
-		img1 = ImageTk.PhotoImage(Image.open("red.png"))
-		img2 = ImageTk.PhotoImage(Image.open("green.png"))
+		img1 = ImageTk.PhotoImage(Image.open("../images/red.png"))
+		img2 = ImageTk.PhotoImage(Image.open("../images/green.png"))
 		canvas1 = tk.Canvas(self, width=100, height=100, bg="black", highlightthickness=0)
 		canvas1.pack()
 		canvas1.create_image((50, 50), image=img1, tag="smile")
 		
 
 		# GUI VICTIM
-		gui_pc = ImageTk.PhotoImage(Image.open("victim.png"))
+		gui_pc = ImageTk.PhotoImage(Image.open("../images/victim.png"))
 		canvas = tk.Canvas(self, width=800, height=200, bg="black", highlightthickness=0)
 		self.gui_pc = gui_pc
 		self.canvas = canvas
@@ -676,8 +679,8 @@ class DNS_attk(Frame):
 		self.label.pack()
 
 		# IMAGES AND CANVAS1
-		img1 = ImageTk.PhotoImage(Image.open("red.png"))
-		img2 = ImageTk.PhotoImage(Image.open("green.png"))
+		img1 = ImageTk.PhotoImage(Image.open("../images/red.png"))
+		img2 = ImageTk.PhotoImage(Image.open("../images/green.png"))
 		canvas1 = tk.Canvas(self, width=100, height=100, bg="black", highlightthickness=0)
 		canvas1.pack()
 		canvas1.create_image((50, 50), image=img1, tag="smile")
@@ -686,8 +689,8 @@ class DNS_attk(Frame):
 		self.configure(bg="black")
 
 		# GUI VICTIM
-		gui_pc = ImageTk.PhotoImage(Image.open("victim.png"))
-		hacker_pc = ImageTk.PhotoImage(Image.open("hacker.png"))
+		gui_pc = ImageTk.PhotoImage(Image.open("../images/victim.png"))
+		hacker_pc = ImageTk.PhotoImage(Image.open("../images/hacker.png"))
 		canvas = tk.Canvas(self, width=800, height=200, bg="black", highlightthickness=0)
 		self.gui_pc = gui_pc
 		self.hacker_pc = hacker_pc
@@ -709,7 +712,7 @@ class about_nc(Frame):
 
 		self.canvas_a = tk.Canvas(self, width=160, height=160, bg="black", highlightthickness=0)
 		self.canvas_a.pack()
-		self.logo = ImageTk.PhotoImage(Image.open('logo.png'))
+		self.logo = ImageTk.PhotoImage(Image.open('../images/logo.png'))
 		self.canvas_a.create_image(160,160,image=self.logo,anchor='se') 
 
 		# SPACES
