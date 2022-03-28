@@ -532,8 +532,8 @@ class DNS_attk(Frame):
 
 		if qname not in dns_hosts:
 		# if the website isn't in our record -> no modif
-		self.text_box.insert("end-1c", "NO MODIF: {0} \n".format(qname))
-		return packet
+			self.text_box.insert("end-1c", "NO MODIF: {0} \n".format(qname))
+			return packet
                 
 		# craft new answer, overriding the original
 		# setting the rdata for the IP we want to redirect (spoofed)
