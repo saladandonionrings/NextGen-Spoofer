@@ -121,7 +121,7 @@ args = parser.parse_args()
 
 
 # Interface input
-cprint(figlet_format('arp spoofer', font='starwars'),'red', attrs=['bold'])
+cprint(figlet_format('arp spoofer', font='5lineoblique'),'red', attrs=['bold'])
 print("\033[3;31m © All credits to NextGenSpoofer  \n")
 print("\033[1;33m Interface :")
 iface=input()
