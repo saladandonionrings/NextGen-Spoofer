@@ -107,7 +107,7 @@ def arp_sniffing2(pkt):
 
 #------------------------------------------------ MAIN PROGRAM --------------------------------------------------
 
-print('\033[1;32m  [+] Starting ARP Spoofing Program... [*]')
+print('\033[1;32m[+] Starting ARP Spoofing Program...')
 
 #------------------------------------- ARGUMENTS ----------------------------------------
 parser = argparse.ArgumentParser()
@@ -120,10 +120,10 @@ parser.add_argument('-s', dest='s', action='store_true', help="shows s")
 args = parser.parse_args()
 
 
-# Interface input
-result = pyfiglet.figlet_format("ARP Spoofer", font = "slant"  )
-print("\033[1;31m"+result)
-print("\033[3;31m © All credits to NextGenSpoofer  \n")
+# Header + Interface input
+header = pyfiglet.figlet_format("ARP Spoofer", font = "slant")
+print("\033[1;31m"+header)
+print("© All credits to NextGenSpoofer  \n")
 print("\033[1;33m Interface :")
 iface=input()
 
@@ -140,9 +140,9 @@ x = sr1(ARP(pdst=routeur_ip), iface=iface, timeout=2)
 routeur_mac = x.hwsrc
 
 
-#------------------------------------------------------------------------------------------------
-#--------------------------------------- MAIN !!! -----------------------------------------------
-#------------------------------------------------------------------------------------------------
+'''
+MAIN MAIN
+'''
 
 # Depending on the arguments (either we attack the whole network or just one victim)
 
