@@ -124,7 +124,7 @@ args = parser.parse_args()
 header = pyfiglet.figlet_format("ARP Spoofer", font = "slant")
 print("\033[1;31m"+header)
 print("© All credits to NextGenSpoofer  \n")
-print("\033[1;33m[?]Interface :")
+print("\033[1;33m[?] Interface :")
 iface=input()
 
 # Get our IP and MAC addr
