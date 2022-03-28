@@ -46,6 +46,7 @@
 	# you can run it as root ou non-root user
 	# !!! Change iface name (line 29 in nextgen_spoofer.py) !!!
 	xhost +
+	python3 nextgen_spoofer.py
 	
 #### 1️⃣🎯 One target : 
 ![image](https://user-images.githubusercontent.com/61053314/135092929-215ff14a-efde-4b3d-ba2d-626e6969eaa5.png)
