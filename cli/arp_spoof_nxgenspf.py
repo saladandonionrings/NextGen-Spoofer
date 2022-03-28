@@ -151,7 +151,7 @@ routeur_mac = x.hwsrc
 try:
   if args.a:
     
-    print("\033[1;34m Network IP(v4) :")
+    print("\033[1;34mNetwork IP(v4) :")
     victim_ip= input()
     
     print("\033[3;31m \n[+] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
