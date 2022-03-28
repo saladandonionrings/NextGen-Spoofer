@@ -19,7 +19,7 @@ import os
 import time
 import argparse
 from termcolor import cprint
-import pyfiglet.fonts
+import pyfiglet
 
 
 # Restore the network
