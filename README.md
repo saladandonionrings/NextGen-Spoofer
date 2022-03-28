@@ -22,10 +22,8 @@
 	pip install NetfilterQueue
 	
 	# OR :
-	git clone https://github.com/oremanj/python-netfilterqueue.git
-	cd python-netfilterqueue
-	python setup.py build
-	python setup.py install
+	sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
+	
 	# if bugs :
 	pip install cython
 
