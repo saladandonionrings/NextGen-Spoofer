@@ -21,12 +21,11 @@
 	# OR :
 	pip install NetfilterQueue
 	
-	# OR :
+	# if errors, use this (works perfectly for Kali) :
 	sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
 	
 	# if bugs :
 	pip install cython
-
 
 	# SCAPY INSTALLATION
 	pip install scapy
@@ -44,6 +43,9 @@
 #### 📢 PLS, know the IP ADDRESS of the network/victim you want to attack.
 
 ## 👨🏽‍💻 INTERFACE
+	# run it as non-root user
+	xhost +
+	
 #### 1️⃣🎯 One target : 
 ![image](https://user-images.githubusercontent.com/61053314/135092929-215ff14a-efde-4b3d-ba2d-626e6969eaa5.png)
 
@@ -64,7 +66,7 @@
 ![image](https://user-images.githubusercontent.com/61053314/135093120-b8b36176-fc22-496e-8b93-061b2518dc4f.png)
 #### Example
 	DNS NAME = google.com
-	DNS @IP = <your malicious web server ip> 
+	DNS @IP = $malicious_server_ip
 	
 ## 💭 ABOUT
 ![image](https://user-images.githubusercontent.com/61053314/135092217-d70b029e-c62c-4fdf-8bc5-95cc09f1c019.png)
