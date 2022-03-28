@@ -132,7 +132,7 @@ me_ip = get_if_addr(iface)
 me_mac = get_if_hwaddr(iface)
 
 # Print our infos (hacker)
-print('\033[3;31m \n[i] My IP address : ( {0} ) \n [i] My MAC address : ( {1} )'.format(me_ip, me_mac))
+print('\033[3;31m \n[i] My IP address : ( {0} ) \n[i] My MAC address : ( {1} )'.format(me_ip, me_mac))
 
 # Router global definition 
 routeur_ip=conf.route.route("0.0.0.0")[2]
@@ -160,7 +160,7 @@ try:
 
   # Single victim attack 
   if args.s:
-    print("Victim IP(v4) :")
+    print("\033[1;34m Victim IP(v4) :")
     victim_ip=input()
     x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) # Since it is a single victim, we need its MAC (for the signal_handler function)
     victim_mac = x.hwsrc
