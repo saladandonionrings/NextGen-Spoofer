@@ -23,9 +23,8 @@ from PIL import Image, ImageTk
 # ------------------------------------- MAIN ---------------------------------------------
 
 routeur_ip=conf.route.route("0.0.0.0")[2] 
-'''
-CHANGE IFACE !!!! enp0s3 -> your iface
-'''
+
+# CHANGE IFACE !!!! enp0s3 -> your iface
 x = sr1(ARP(pdst=routeur_ip), iface="enp0s3", timeout=2) 
 routeur_mac=x.hwsrc
 
@@ -700,7 +699,7 @@ class about_nc(Frame):
 		       
 		Frame.__init__(self, master)
 
-		self.label_if = Label(self, text="         ☠ About ☠           ", font = ( "Courier" , 20 ), bg='red', pady=30, padx=128)
+		self.label_if = Label(self, text="         😡 About 😡           ", font = ( "Courier" , 20 ), bg='red', pady=30, padx=128)
 		self.label_if.pack()
 
 		# SPACES
