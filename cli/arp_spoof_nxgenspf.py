@@ -154,8 +154,8 @@ try:
     print("\033[1;34m[i] Network IP(v4) :")
     victim_ip= input()
     
-    print("\033[3;31m \n[+] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
-    print('[+] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
+    print("\033[3;31m \n[+] Attacking the network %s on iface %s"%(victim_ip, iface))
+    print('[+] Attacking the router : IP(v4) ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     all()
 
   # Single victim attack 
@@ -166,7 +166,7 @@ try:
     victim_mac = x.hwsrc
 
     print('\033[3;31m \n[+] Attacking the victim ( {0} ), MAC address ( {1} )'.format(victim_ip, victim_mac))
-    print('[+] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
+    print('[+] Attacking the router : IP(v4) ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     single() 
 
 except:
