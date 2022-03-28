@@ -80,7 +80,7 @@ if __name__ == "__main__":
     header = pyfiglet.figlet_format("DNS Spoofer", font = "slant")
     print("\033[1;31m"+header)
     print("© All credits to NextGenSpoofer  \n")
-    print("Don't forget to change the source code for dns_hosts")
+    print("/!\ Don't forget to change the source code for dns_hosts /!\")
     QUEUE_NUM = 0
     # insert iptables FORWARD rule
     os.system("iptables -I FORWARD -j NFQUEUE --queue-num {}".format(QUEUE_NUM))
