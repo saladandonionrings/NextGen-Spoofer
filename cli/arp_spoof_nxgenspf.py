@@ -121,7 +121,7 @@ args = parser.parse_args()
 
 
 # Interface input
-cprint(figlet_format('arp spoofer', font='5lineoblique'),'red', attrs=['bold'])
+print(pyfiglet.figlet_format("G e e k", font = "3-d"))
 print("\033[3;31m © All credits to NextGenSpoofer  \n")
 print("\033[1;33m Interface :")
 iface=input()
