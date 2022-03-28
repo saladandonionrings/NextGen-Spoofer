@@ -151,7 +151,7 @@ routeur_mac = x.hwsrc
 try:
   if args.a:
     
-    print("\033[1;34mNetwork IP(v4) :")
+    print("\033[1;34m[i] Network IP(v4) :")
     victim_ip= input()
     
     print("\033[3;31m \n[+] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
@@ -160,7 +160,7 @@ try:
 
   # Single victim attack 
   if args.s:
-    print("\033[1;34m Victim IP(v4) :")
+    print("\033[1;34m[i] Victim IP(v4) :")
     victim_ip=input()
     x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) # Since it is a single victim, we need its MAC (for the signal_handler function)
     victim_mac = x.hwsrc
@@ -170,6 +170,6 @@ try:
     single() 
 
 except:
-  print("\033[1;41m [/!\] Closing program...")
+  print("\033[1;41m[/!\] Closing program...")
                  
 # Stop program with CTRL+C
