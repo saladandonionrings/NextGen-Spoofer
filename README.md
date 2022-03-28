@@ -43,7 +43,7 @@
 #### 📢 PLS, know the IP ADDRESS of the network/victim you want to attack.
 
 ## 👨🏽‍💻 INTERFACE
-	# run it as non-root user
+	# you can run it as root ou non-root user
 	# !!! Change iface name (line 29 in nextgen_spoofer.py) !!!
 	xhost +
 	
