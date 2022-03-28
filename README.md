@@ -9,7 +9,7 @@
 </div>
 
 # ⚙️ SetUp 
-#### 🍀 Recommanded to run it on Debian 10
+#### 🍀 Recommanded to run it on Debian 10 / Kali
 ##### 📢 Make sure you installed Python/Python3
 ##### 📢 Please, install *netfilterqueue* and *scapy* as prerequisites :
 
