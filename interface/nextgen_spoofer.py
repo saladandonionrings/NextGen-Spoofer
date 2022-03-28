@@ -93,7 +93,7 @@ class Tab1(Frame):
 #--------------------------------------- ARP SPOOF 1 VICTIM ------------------------------------------
 
 class ARP_one(Frame):
-    def __init__(self, master):
+	def __init__(self, master):
         
         # Close application + restore network
 		def signal_handler():
