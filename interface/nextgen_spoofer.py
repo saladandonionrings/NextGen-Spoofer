@@ -603,9 +603,8 @@ class DNS_attk(Frame):
 			if "NFQUEUE" in i:
 				canvas1.itemconfig("smile", image=img2)
 		queue.run()
-                
-        def dns_kill():
-            
+
+	def dns_kill():
 		#IMPORTANT !!
 		os.system("iptables -F")
 		queue = NetfilterQueue()
