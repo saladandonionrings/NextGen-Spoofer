@@ -8,17 +8,14 @@ import os
 import time
 import argparse
 
-
-import Tkinter as tk
-from Tkinter import *
-import ttk
+import tkinter as tk 
+from tkinter import *
+from tkinter import ttk
 
 from scapy.all import *
 from netfilterqueue import NetfilterQueue
 
 from threading import *
-
-from PIL.ImageTk import PhotoImage
 
 from PIL import Image, ImageTk
 
