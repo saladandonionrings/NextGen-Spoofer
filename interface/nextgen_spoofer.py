@@ -361,8 +361,8 @@ class ARP_all(Frame):
 				self.text_box.insert("end-1c", "{:16}    {}\n".format(x['ip'], x['mac']))
 				
 			# GUI VICTIMES ANIMATION
-			a = 80
-			b = 80
+			a = 10
+			b = 10
 			
 			canvas = self.canvas
 			gui_pc = self.gui_pc
@@ -378,17 +378,17 @@ class ARP_all(Frame):
 			for y in gui_victimes:
 				print (y)
 				
-				item=canvas.create_image((a, 30), anchor=NW, image=gui_pc, tag="gui_vic")
+				item=canvas.create_image((a, 10), anchor=NW, image=gui_pc, tag="gui_vic")
 				canvas.itemconfig("gui_vic", image=gui_pc)
-				text=canvas.create_text((b, 90), anchor=NW, font=("Calibri", 7), text=y, tag="gui_ip", fill="red")
+				text=canvas.create_text((b, 65), anchor=NW, font=("Calibri", 7), text=y, tag="gui_ip", fill="red")
 				canvas.itemconfig("gui_ip")
 				self.items.append(item)
 				self.texts.append(text)
 
 				text=0
 				item=0
-				a += 130
-				b += 130
+				a += 100
+				b += 100
 				
 			time.sleep(1)
 			canvas.update()
