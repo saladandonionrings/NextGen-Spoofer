@@ -56,10 +56,8 @@ https://user-images.githubusercontent.com/61053314/160422196-dcc8f15a-eac6-4c93-
 ![image](https://user-images.githubusercontent.com/61053314/135092929-215ff14a-efde-4b3d-ba2d-626e6969eaa5.png)
 
 #### ♾️🎯 All network is targeted : 
+https://user-images.githubusercontent.com/61053314/160906537-34b35d9e-a004-4bc5-a0bf-46c919643261.mp4
 
-[![ARP ALL NETWORK](https://img.youtube.com/vi/BcOIdwyOpqk/0.jpg)](https://www.youtube.com/watch?v=BcOIdwyOpqk)
-
-	
 # 🍔 DNS SPOOF 
 #### 📢 USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
 ## #️⃣ CLI
