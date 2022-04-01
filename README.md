@@ -48,7 +48,6 @@ https://user-images.githubusercontent.com/61053314/160422196-dcc8f15a-eac6-4c93-
 
 ## 👨🏽‍💻 INTERFACE
 	# you can run it as root ou non-root user
-	# !!! Change iface name (line 29 in nextgen_spoofer.py) !!!
 	xhost +
 	python3 nextgen_spoofer.py
 	
