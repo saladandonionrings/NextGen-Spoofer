@@ -53,7 +53,7 @@ https://user-images.githubusercontent.com/61053314/160422196-dcc8f15a-eac6-4c93-
 	python3 nextgen_spoofer.py
 	
 #### 1️⃣🎯 One target : 
-![image](https://user-images.githubusercontent.com/61053314/135092929-215ff14a-efde-4b3d-ba2d-626e6969eaa5.png)
+![arp_one_spoof](https://user-images.githubusercontent.com/61053314/161270810-292725ba-2bb6-4fbb-a005-c98f340b46d2.png)
 
 #### ♾️🎯 All network is targeted : 
 https://user-images.githubusercontent.com/61053314/160906537-34b35d9e-a004-4bc5-a0bf-46c919643261.mp4
@@ -68,13 +68,13 @@ https://user-images.githubusercontent.com/61053314/160906537-34b35d9e-a004-4bc5-
 	You can edit the file to spoof any domain you want.
 	
 ## 👨🏽‍💻 INTERFACE
-![image](https://user-images.githubusercontent.com/61053314/135093120-b8b36176-fc22-496e-8b93-061b2518dc4f.png)
+![dns_int](https://user-images.githubusercontent.com/61053314/161272132-5e0a69c5-18fa-4e8a-a6f8-bf14f65cb15f.png)
 #### Example
 	DNS NAME = google.com
 	DNS @IP = $malicious_server_ip
 	
 ## 💭 ABOUT
-![image](https://user-images.githubusercontent.com/61053314/135092217-d70b029e-c62c-4fdf-8bc5-95cc09f1c019.png)
+![about](https://user-images.githubusercontent.com/61053314/161272169-90563473-8233-4988-9ac8-10971d3f19e8.png)
 ## Contributors 🛹
 ![GitHub contributors](https://img.shields.io/github/contributors/saladandonionrings/nextgen_spoofer?style=flat-square)
 
