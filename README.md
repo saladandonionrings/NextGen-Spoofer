@@ -1,6 +1,6 @@
 <div align="center">
   <img alt="logo_nextgen_spoof" src="https://user-images.githubusercontent.com/61053314/132832369-540ded53-8aff-4ea7-bcd6-70dbe7109c1a.png" width="250" />
-  <h1>🐱‍💻 Welcome to NextGenSpoofer </h1>
+  <h1>🐱‍ Welcome to NextGenSpoofer </h1>
   <p>
     <img alt="Python Version" src="https://img.shields.io/pypi/pyversions/3?style=for-the-badge" />
   </p>
@@ -9,16 +9,14 @@
 </div>
 
 # ⚙️ SetUp 
-#### 🍀 Recommanded to run it on Debian 10 / Kali
+#### 🍀 Recommanded to run it on Debian / Kali
 ##### 📢 Make sure you installed Python/Python3
-##### 📢 Please, install *netfilterqueue* and *scapy* as prerequisites :
 
 	apt-get update
 
 	# Prerequisites
 	apt-get install build-essential python-dev libnetfilter-queue-dev
 	
-	# OR :
 	pip install -r requirements.txt
 	
 	# if errors with Netfilterqueue, use this (works perfectly for debian/kali) :
@@ -37,8 +35,6 @@ https://user-images.githubusercontent.com/61053314/160422041-4de63d8b-7891-41b1-
 
 ### All network is targeted
 https://user-images.githubusercontent.com/61053314/160422196-dcc8f15a-eac6-4c93-a5ae-f93215b7c124.mp4
-
-#### 📢 PLS, know the IP ADDRESS of the network/victim you want to attack.
 
 ## 👨🏽‍💻 INTERFACE
 	# you can run it as root ou non-root user
