@@ -1,0 +1,5 @@
+termcolor
+scapy
+pyfiglet
+cython
+NetfilterQueue
