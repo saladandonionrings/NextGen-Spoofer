@@ -3,4 +3,4 @@ scapy
 pyfiglet
 cython
 NetfilterQueue
-tkinter
+tk
