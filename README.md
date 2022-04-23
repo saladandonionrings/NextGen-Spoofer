@@ -15,20 +15,14 @@
 
 	apt-get update
 
-	# NETFILTERQUEUE INSTALLATION
+	# Prerequisites
 	apt-get install build-essential python-dev libnetfilter-queue-dev
 	
 	# OR :
-	pip install NetfilterQueue
+	pip install -r requirements.txt
 	
-	# if errors, use this (works perfectly for Kali) :
+	# if errors with Netfilterqueue, use this (works perfectly for debian/kali) :
 	sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
-	
-	# if bugs :
-	pip install cython
-
-	# SCAPY INSTALLATION
-	pip install scapy
 
 
 # 💈 ARP Spoof 
