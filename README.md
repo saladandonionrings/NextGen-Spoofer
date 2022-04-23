@@ -10,12 +10,12 @@
 
 # ⚙️ SetUp 
 #### 🍀 Recommanded to run it on Debian / Kali
-##### 📢 Make sure you installed Python/Python3
+##### 📢 Make sure you installed Python3
 
 	apt-get update
 
 	# Prerequisites
-	apt-get install build-essential python-dev libnetfilter-queue-dev
+	apt-get install build-essential python-dev libnetfilter-queue-dev python3-tk
 	
 	pip install -r requirements.txt
 	
