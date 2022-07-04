@@ -31,10 +31,10 @@
 		[-a] : all network is targeted
 		
 ### Single target
-https://user-images.githubusercontent.com/61053314/160422041-4de63d8b-7891-41b1-bc8d-aaf7493b0d00.mp4
+<img src="https://user-images.githubusercontent.com/61053314/177129438-1c53cbdd-56df-4713-8651-81c82f3fa2f0.png" />
 
 ### All network is targeted
-https://user-images.githubusercontent.com/61053314/160422196-dcc8f15a-eac6-4c93-a5ae-f93215b7c124.mp4
+<img src="https://user-images.githubusercontent.com/61053314/177128834-9c33b2fe-26f2-47e2-a295-f2db95fc53fe.png"/>
 
 ## 👨🏽‍💻 INTERFACE
 	# you can run it as root ou non-root user
