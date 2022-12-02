@@ -32,7 +32,7 @@ def get_args():
 
 domain,server = get_args()
 
-# DNS host records, for instance here, we want to spoof google.com
+# DNS host records
 dns_hosts = {
     "{0}.".format(domain) : "{0}".format(server),
 }
