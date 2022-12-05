@@ -30,10 +30,10 @@
 		[-s] : single target
 		[-a] : all network is targeted
 		
-### Single target
+### 1️⃣🎯 Single target
 <img src="https://user-images.githubusercontent.com/61053314/177129438-1c53cbdd-56df-4713-8651-81c82f3fa2f0.png" />
 
-### All network is targeted
+### ♾️🎯 All network is targeted
 <img src="https://user-images.githubusercontent.com/61053314/177128834-9c33b2fe-26f2-47e2-a295-f2db95fc53fe.png"/>
 
 ## 👨🏽‍💻 INTERFACE
@@ -41,7 +41,7 @@
 	xhost +
 	python3 nextgen_spoofer.py
 	
-#### 1️⃣🎯 One target : 
+#### 1️⃣🎯 Single target : 
 ![arp_one_spoof](https://user-images.githubusercontent.com/61053314/161270810-292725ba-2bb6-4fbb-a005-c98f340b46d2.png)
 
 #### ♾️🎯 All network is targeted : 
@@ -50,11 +50,7 @@ https://user-images.githubusercontent.com/61053314/160906537-34b35d9e-a004-4bc5-
 # 🍔 DNS SPOOF 
 #### 📢 USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
 ## #️⃣ CLI
-	python dns_spoof_nxgenspf.py
-	
-#### 📝 Note 
-	"www." are not ALWAYS useful for the domain name.
-	You can edit the file to spoof any domain you want.
+	python dns_spoof_nxgenspf.py -d google.com -s $evil_server_ip
 	
 ## 👨🏽‍💻 INTERFACE
 ![dns_int](https://user-images.githubusercontent.com/61053314/161272132-5e0a69c5-18fa-4e8a-a6f8-bf14f65cb15f.png)
