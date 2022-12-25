@@ -2,5 +2,5 @@ termcolor
 scapy
 pyfiglet
 cython
-NetfilterQueue
 tk
+NetfilterQueue
