@@ -17,6 +17,8 @@ ARP and DNS Spoofers tool
 	# Prerequisites
 	apt-get install build-essential python-dev libnetfilter-queue-dev python3-tk
 	
+	git clone https://github.com/saladandonionrings/NextGen-Spoofer.git
+	cd NextGen-Spoofer
 	pip install -r requirements.txt
 	
 	# if errors with Netfilterqueue, use this (works perfectly for debian/kali) :
