@@ -30,8 +30,8 @@ sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
 ```bash
 python arp_spoof_nxgenspf.py [-s] [-a]
 ### ⚠️ WARNING : You cannot use both ! ⚠️
-[-s] : single target
-[-a] : all network is targeted
+# [-s] : single target
+# [-a] : all network is targeted
 ```
 
 ### 1️⃣🎯 Single target
