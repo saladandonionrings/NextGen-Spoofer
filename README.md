@@ -11,27 +11,29 @@ ARP and DNS Spoofers tool
 # ⚙️ SetUp 
 #### 🍀 Recommanded to run it on Debian / Kali
 ##### 📢 Make sure you installed Python3
+```bash
+apt-get update
 
-	apt-get update
+# Prerequisites
+apt-get install build-essential python-dev libnetfilter-queue-dev python3-tk
 
-	# Prerequisites
-	apt-get install build-essential python-dev libnetfilter-queue-dev python3-tk
-	
-	git clone https://github.com/saladandonionrings/NextGen-Spoofer.git
-	cd NextGen-Spoofer
-	pip install -r requirements.txt
-	
-	# if errors with Netfilterqueue, use this (works perfectly for debian/kali) :
-	sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
+git clone https://github.com/saladandonionrings/NextGen-Spoofer.git
+cd NextGen-Spoofer
+pip install -r requirements.txt
 
+# if errors with Netfilterqueue, use this (works perfectly for debian/kali) :
+sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
+```
 
 # 💈 ARP Spoof 
 ## #️⃣ CLI
-		python arp_spoof_nxgenspf.py [-s] [-a]
-		### ⚠️ WARNING : You cannot use both ! ⚠️
-		[-s] : single target
-		[-a] : all network is targeted
-		
+```bash
+python arp_spoof_nxgenspf.py [-s] [-a]
+### ⚠️ WARNING : You cannot use both ! ⚠️
+[-s] : single target
+[-a] : all network is targeted
+```
+
 ### 1️⃣🎯 Single target
 <img src="https://user-images.githubusercontent.com/61053314/177129438-1c53cbdd-56df-4713-8651-81c82f3fa2f0.png" />
 
@@ -39,10 +41,12 @@ ARP and DNS Spoofers tool
 <img src="https://user-images.githubusercontent.com/61053314/177128834-9c33b2fe-26f2-47e2-a295-f2db95fc53fe.png"/>
 
 ## 👨🏽‍💻 INTERFACE
-	# you can run it as root ou non-root user
-	xhost +
-	python3 nextgen_spoofer.py
-	
+```bash
+# you can run it as root ou non-root user
+xhost +
+python3 nextgen_spoofer.py
+```
+
 #### 1️⃣🎯 Single target : 
 ![arp_one_spoof](https://user-images.githubusercontent.com/61053314/161270810-292725ba-2bb6-4fbb-a005-c98f340b46d2.png)
 
@@ -52,8 +56,10 @@ https://user-images.githubusercontent.com/61053314/160906537-34b35d9e-a004-4bc5-
 # 🍔 DNS SPOOF 
 #### 📢 USE IT RIGHT AFTER YOU LAUNCHED ARP SPOOF
 ## #️⃣ CLI
-	python dns_spoof_nxgenspf.py -d google.com -s $evil_server_ip
-	
+```bash
+python dns_spoof_nxgenspf.py -d google.com -s $evil_server_ip
+```
+
 ## 👨🏽‍💻 INTERFACE
 ![dns_int](https://user-images.githubusercontent.com/61053314/161272132-5e0a69c5-18fa-4e8a-a6f8-bf14f65cb15f.png)
 #### Example
