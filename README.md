@@ -9,8 +9,7 @@ ARP and DNS Spoofers tool
 </div>
 
 # ⚙️ SetUp 
-#### 🍀 Recommanded to run it on Debian / Kali
-##### 📢 Make sure you installed Python3
+Recommanded to run it on **Debian / Kali**
 ```bash
 apt-get update
 
@@ -29,7 +28,6 @@ sudo pip3 install --upgrade -U git+https://github.com/kti/python-netfilterqueue
 ## #️⃣ CLI
 ```bash
 python arp_spoof_nxgenspf.py [-s] [-a]
-### ⚠️ WARNING : You cannot use both ! ⚠️
 # [-s] : single target
 # [-a] : all network is targeted
 ```
@@ -42,7 +40,7 @@ python arp_spoof_nxgenspf.py [-s] [-a]
 
 ## 👨🏽‍💻 INTERFACE
 ```bash
-# you can run it as root ou non-root user
+# you can run it as root or non-root user
 xhost +
 python3 nextgen_spoofer.py
 ```
