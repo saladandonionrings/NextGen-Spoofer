@@ -14,9 +14,10 @@ Recommanded to run it on **Debian / Kali**
 apt-get update
 
 # Prerequisites
-apt-get install build-essential python-dev libnetfilter-queue-dev python3-tk
-
+sudo apt-get install build-essential python3-dev libnetfilter-queue-dev python3-tk python3-venv -y
 git clone https://github.com/saladandonionrings/NextGen-Spoofer.git
+python3 -m venv venv
+source venv/bin/activate
 cd NextGen-Spoofer
 pip install -r requirements.txt
 
