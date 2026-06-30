@@ -7,7 +7,6 @@
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
-![License](https://img.shields.io/github/license/saladandonionrings/NextGen-Spoofer?style=flat-badge)
 
 </div>
 
